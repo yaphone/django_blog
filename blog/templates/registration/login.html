@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	{% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="img/favicon.ico">
+
+    <title>Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'blog/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{% static 'blog/css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'blog/css/blog.css' %}" rel="stylesheet">
+
+	<link href="{% static 'blog/css/signin.css' %}" rel="stylesheet">
+
+	<script src="{% static 'blog/js/jquery.js' type='text/javascript' %}" > </script>
+	<script src="{% static 'blog/js/my_jquery_functions.js' type='text/javascript' %}" > </script>
+    
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" action="/blog/auth" method="post">
+		{% csrf_token %}
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputUsername" class="sr-only">Username</label>
+        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+          {% if next %}
+          <input type="hidden" name="next" value="{{ next }}" />
+          {% endif %}
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button id="login" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+	  
+<!--	  
+	  <p id="test"> This is just for test !</p>
+	  <button type="button">Click me</button>
+-->
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  </body>
+</html>

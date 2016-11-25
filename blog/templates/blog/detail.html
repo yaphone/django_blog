@@ -13,10 +13,12 @@
     <title>Welcome to Yaphone's blog</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'blog/css/bootstrap.css' %}" rel="stylesheet">
+    <!--link href="{% static 'blog/css/bootstrap.css' %}" rel="stylesheet"-->
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="{% static 'blog/css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+	<link href="{% static 'blog/css/monokai.css' %}" rel="stylesheet">
+	<!--link rel="stylesheet" href="http://picturebag.qiniudn.com/monokai.css"-->
 
     <!-- Custom styles for this template -->
     <link href="{% static 'blog/css/blog.css' %}" rel="stylesheet">
@@ -49,13 +51,14 @@
 		<div class="row">
 
 			<div class="col-sm-8 blog-main">
+			{% load custom_markdown %}
 	  {% if blog_list %}
 		{% for blog in blog_list%}
 			  <div class="blog-post">
 				<h2 class="blog-post-title">{{ blog.blog_title}}</h2>
 				<p class="blog-post-meta">{{ blog.update_time }} 
 
-				<p> {{ blog.blog_content }} </p>
+				<p> {{ blog.blog_content| custom_markdown  }} </p>
 			  </div><!-- /.blog-post -->
 			{% endfor %}
 	  {% endif %}

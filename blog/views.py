@@ -6,7 +6,10 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from blogParser import parser
 import time
+import os
+BASE_DIR = os.path.dirname(__file__)
 
 from .models import Blog
 
@@ -57,5 +60,12 @@ def detail(request):
     blog_list = Blog.objects.filter(blog_title = title)
     context = {'blog_list': blog_list}
     return render(request, 'blog/detail.html', context)
+
+def get_markdowns(request):
+    md_path = os.path.join(BASE_DIR, 'static/markdowns')
+    md_list = os.listdir(md_path)
+    print md_list
+    return HttpResponse(md_list)
+
     
     

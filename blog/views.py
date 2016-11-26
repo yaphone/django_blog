@@ -46,6 +46,7 @@ def publish_article(request):
     tag = request.POST.get("keywords", "null")
     content = request.POST.get("content", "null")
     update_time = time.time()
+    print content
     blog = Blog(blog_title = title, blog_content=content, update_time = timezone.now(), 
                 modify_time = timezone.now(), blog_tag = tag, blog_type = classify)
     blog.save()

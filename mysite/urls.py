@@ -24,5 +24,4 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('^', include('django.contrib.auth.urls')),
     url(r'accounts/login', login),
-    url(r'^markdownx/', include('markdownx.urls')),
 ]

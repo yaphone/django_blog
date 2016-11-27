@@ -1,6 +1,6 @@
 {% extends "blog/base.html" %}
-
 {% block content %}
+    <div class="col-sm-12 blog-main">
 {% load custom_markdown %}
 {% if blog_list %}
     {% for blog in blog_list%}
@@ -12,3 +12,4 @@
     {% endfor %}
 {% endif %}
 {% endblock %}
+    </div><!--main container>

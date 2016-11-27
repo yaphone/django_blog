@@ -1,5 +1,7 @@
-def parser(blog):
+#coding=utf-8
+def parser(file_path):
     blog_dict = {}
+    blog = open(file_path).read()
     # Title
     title_start = blog.find("TITLE:") + 6
     title_end = blog.find("CLASSIFY:") - 1

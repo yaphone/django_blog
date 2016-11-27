@@ -2,6 +2,7 @@
 
 {% block content %}
 {% load custom_markdown %}
+    <div class="col-sm-8 blog-main">
 {% if blog_list %}
 	{% for blog in blog_list%}
 		<div class="blog-post">
@@ -10,9 +11,14 @@
             <p> {{ blog.blog_content | custom_markdown }} </p>
         </div><!-- /.blog-post -->
     {% endfor %}
+    <nav>
+        <ul class="pager">
+            <li><a href="#">Previous</a></li>
+            <li><a href="#">Next</a></li>
+        </ul>
+</nav>
 {% endif %}
 {% endblock content %}
-
 {% block blog_sider %}
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
     <div class="sidebar-module sidebar-module-inset">
@@ -45,4 +51,6 @@
         </ol>
     </div>
 </div><!-- /.blog-sidebar -->
+
 {% endblock %}
+</div><!-- /.container -->

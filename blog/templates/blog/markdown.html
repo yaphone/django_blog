@@ -1,0 +1,63 @@
+
+{%extends "blog/base.html" %}
+{% load static %}
+{% block head %}
+    <style>
+        li{
+            list-style:None;
+            float:left;
+        }
+        ul{
+            padding:0;
+            margin:0;
+        }
+    </style>
+    <script>
+        function init() {
+            $.getJSON('/blog/get_md_info', function (data) {
+                //alert(data);
+                for(var i in data['md']){
+                    var info = data['md'][i]
+                    $("#md_list").append("<li> <img src={% static 'blog/icon/md_icon.ico' %}>" +
+                    "<ul> <li> <input type='checkbox' value=" + info['mdName'] + "> </li>" + info['mdName'] + "</ul> </li>")
+                }
+
+            });
+        }
+        //var md_name_list = []
+        function push_md_name_list() {
+            var md_name_list = [];
+            $("input[type='checkbox']:checked").each(function () {
+                md_name_list.push($(this).val());
+            });
+            $.ajax({
+                url: "/blog/get_md_name_list",
+                type: "GET",
+                data: {
+                    'md_name_list': md_name_list.join(',')
+                },
+                traditional: true,
+                success: function (data) {
+                }
+            })
+
+
+        }
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <ul id="md_list">
+        </ul>
+        </div>
+    </div>
+    <hr>
+
+    <button class="btn-lg btn-success col-lg-12" id="pushMarkdown" onclick="push_md_name_list()">确定</button>
+
+{% endblock %}
+
+
+

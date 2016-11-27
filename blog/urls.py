@@ -9,5 +9,8 @@ urlpatterns = [
     url(r'^auth', views.auth, name='auth'),
     url(r'^user_logout', views.user_logout, name='user_logout'),
     url(r'^detail', views.detail, name='detail'),
-    url(r'^get_markdowns', views.get_markdowns, name='get_markdowns'),
+#    url(r'^get_markdowns', views.get_markdowns, name='get_markdowns'),
+    url(r'^markdowns', views.markdowns, name="markdowns"),
+    url(r'^get_md_info', views.get_md_info, name="get_md_info"),
+    url(r'^get_md_name_list', views.get_md_name_list, name="get_md_name_list"),
 ]

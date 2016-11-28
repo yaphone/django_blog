@@ -18,7 +18,7 @@ from .models import Blog
 
 # Create your views here.
 def index(request):
-    blog_list = Blog.objects.order_by('-update_time')[:5]
+    blog_list = Blog.objects.order_by('-update_time')
     context = {'blog_list': blog_list}
     return render(request, 'blog/index.html', context)
 
@@ -76,6 +76,7 @@ def get_markdowns(request):
 def markdowns(request):
     return render(request, 'blog/markdown.html')
 
+#返回所有的md文件名
 @login_required
 def get_md_info(request):
     md_path = os.path.join(BASE_DIR, 'static/markdowns')
@@ -84,7 +85,7 @@ def get_md_info(request):
     md_info_list = []  # 存储md文件信息列表
     for md in md_list:
         md_info = {}  # 存储单个md信息
-        md_info.setdefault('mdName', md)
+        md_info.setdefault('mdName', md[:len(md)-3]) #去掉'md'后缀
         md_info_list.append(md_info)
     md_info_dict.setdefault('md', md_info_list)
     return JsonResponse(md_info_dict, safe=False)
@@ -95,7 +96,11 @@ def get_md_info(request):
 def get_md_name_list(request):
     md_name_list_str = request.GET['md_name_list']
     md_name_list = md_name_list_str.split(',')
+    blog_list = Blog.objects.order_by('-update_time')
+    blog_title_list = [blog.blog_title for blog in blog_list]
     for md_name in md_name_list:
+        if md_name[:len(md_name) - 3] in blog_title_list:  #md_name[:len(md_name) - 3]为去掉'.md'后缀
+            continue
         file_path = os.path.join(BASE_DIR, 'static/markdowns/' + md_name)
         blog_dict = parser(file_path)
         title = blog_dict['title']
@@ -105,5 +110,29 @@ def get_md_name_list(request):
         blog = Blog(blog_title=title, blog_content=content, update_time=timezone.now(),
                     modify_time=timezone.now(), blog_tag=keywords, blog_type=classify)
         blog.save()
-    return HttpResponse(request)
+    return JsonResponse({'status': 'OK'})
 
+@login_required
+def delete_page(request):
+    return render(request, 'blog/delete.html')
+
+#返回所有的博客标题
+@login_required
+def get_all_title_info(request):
+    blog_list = Blog.objects.order_by('-update_time')
+    blog_title_list = [blog.blog_title for blog in blog_list]
+    title_dict = {}
+    title_info_list = []
+    for blog_title in blog_title_list:
+        title_info = {'title': blog_title}
+        title_info_list.append(title_info)
+    title_dict.setdefault('blog_titles', title_info_list)
+    return JsonResponse(title_dict, safe=False)
+
+#根据前端传来的博客标题从数据库中删除
+@login_required
+def delete_select_blog(request):
+    blog_titles = request.GET['title_list']
+    blog_title_list = blog_titles.split(',')
+    print blog_title_list
+    return JsonResponse({'status': 'OK'})

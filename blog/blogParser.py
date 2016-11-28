@@ -28,8 +28,9 @@ def parser(file_path):
 
     return blog_dict
 
-
+'''
 if __name__ == '__main__':
     file = open('/Users/zhouyafeng/Desktop/HelloWorld.md')
     blog = file.read()
+'''
 

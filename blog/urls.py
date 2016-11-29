@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^delete_page$', views.delete_page, name='delete_page'),
     url(r'^get_all_title_info$', views.get_all_title_info, name='get_all_title_info'),
     url(r'^delete_select_blog$', views.delete_select_blog, name='delete_select_blog'),
+    url(r'^upload$', views.upload, name='upload'),
+
 ]

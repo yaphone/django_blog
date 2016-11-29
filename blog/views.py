@@ -99,15 +99,18 @@ def get_md_name_list(request):
     blog_list = Blog.objects.order_by('-update_time')
     blog_title_list = [blog.blog_title for blog in blog_list]
     for md_name in md_name_list:
-        if md_name[:len(md_name) - 3] in blog_title_list:  #md_name[:len(md_name) - 3]为去掉'.md'后缀
-            continue
-        file_path = os.path.join(BASE_DIR, 'static/markdowns/' + md_name)
+        if md_name in blog_title_list:
+            blog = Blog.objects.get(blog_title=md_name)
+            blog_id = blog.id
+        else:
+            blog_id = None
+        file_path = os.path.join(BASE_DIR, 'static/markdowns/' + md_name + '.md')
         blog_dict = parser(file_path)
         title = blog_dict['title']
         classify = blog_dict['classify']
         keywords = blog_dict['keywords']
         content = blog_dict['content']
-        blog = Blog(blog_title=title, blog_content=content, update_time=timezone.now(),
+        blog = Blog(id=blog_id, blog_title=title, blog_content=content, update_time=timezone.now(),
                     modify_time=timezone.now(), blog_tag=keywords, blog_type=classify)
         blog.save()
     return JsonResponse({'status': 'OK'})
@@ -135,4 +138,32 @@ def delete_select_blog(request):
     blog_titles = request.GET['title_list']
     blog_title_list = blog_titles.split(',')
     print blog_title_list
+    for title in blog_title_list:
+        blog = Blog.objects.get(blog_title=title)
+        blog.delete()
     return JsonResponse({'status': 'OK'})
+
+@csrf_exempt
+@login_required
+def upload(request):
+    if request.method == "POST":
+        md = request.FILES.get('md')
+        if md:
+            mdFile = open(os.path.join(BASE_DIR, 'static/markdowns/' + md.name), 'wb+')
+            mdFile.write(md.read())
+            mdFile.close()
+    return render(request, 'blog/upload.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+

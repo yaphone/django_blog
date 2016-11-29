@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% block head %}
+    <style>
+        li{
+            list-style:None;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1>上传md格式博客</h1>
+    <form method="post" enctype="multipart/form-data" >
+        <ul>
+            <li>
+                <input type="text" name="textFlied" id="textFiled" value="请选择文件">
+                <input type="file" name="md" class="btn-success">浏览</input>
+                <hr>
+            </li>
+            <li>
+                <input type="submit" value="上传"/>
+            </li>
+        </ul>
+    </form>
+{% endblock %}

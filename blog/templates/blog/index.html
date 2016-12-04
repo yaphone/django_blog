@@ -1,4 +1,22 @@
 {%extends "blog/base.html" %}
+{% block head %}
+    <script>
+        $(function () {
+            var page_no = parseInt($("#page_no").val());
+            var url = "/blog/index?page_no=";
+            var previous_page_url = url;
+            var next_page_url = url;
+            if (page_no != 0){
+                previous_page_url = url + String(page_no - 1);
+            }
+            next_page_url = url + String(page_no + 1);
+            $("#previous").attr("href", previous_page_url);
+            $("#next").attr("href", next_page_url);
+
+        })
+    </script>
+
+{% endblock %}
 
 {% block content %}
 {% load custom_markdown %}
@@ -8,17 +26,20 @@
 		<div class="blog-post">
 		    <h2 class="blog-post-title">{{ blog.blog_title}}</h2>
             <p class="blog-post-meta">{{ blog.update_time }} <a href="/blog/detail?title={{blog.blog_title}}">Read more</a></p>
-            <p> {{ blog.blog_content | custom_markdown }} </p>
+            <p> {{ blog.blog_content | slice:"100" | custom_markdown}} </p>
+            <hr>
         </div><!-- /.blog-post -->
     {% endfor %}
-    <nav>
-        <ul class="pager">
-            <li><a href="#">Previous</a></li>
-            <li><a href="#">Next</a></li>
-        </ul>
-</nav>
+        <nav>
+            <ul class="pager">
+                <li><input id="page_no" type="hidden" value={{ page_no }}> </li>
+                <li><a id="previous" href="#">Previous</a></li>
+                <li><a id="next" href="#">Next</a></li>
+            </ul>
+        </nav>
 {% endif %}
 {% endblock content %}
+
 {% block blog_sider %}
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
     <div class="sidebar-module sidebar-module-inset">
@@ -51,6 +72,6 @@
         </ol>
     </div>
 </div><!-- /.blog-sidebar -->
+</div><!-- /.container -->
 
 {% endblock %}
-</div><!-- /.container -->

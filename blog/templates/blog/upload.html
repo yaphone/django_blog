@@ -1,23 +1,20 @@
 {% extends "blog/base.html" %}
 {% block head %}
+    {% load static %}
     <style>
         li{
             list-style:None;
         }
     </style>
+    <link  href="{% static 'blog/css/fileinput.min.css' %}" rel="stylesheet" >
+    <script src="{% static 'blog/js/fileinput.min.js' type='text/javascript' %}" > </script>
+    <script src="{% static 'blog/js/zh.js' type='text/javascript' %}" > </script>
 {% endblock %}
 {% block content %}
-    <h1>上传md格式博客</h1>
-    <form method="post" enctype="multipart/form-data" >
-        <ul>
-            <li>
-                <input type="text" name="textFlied" id="textFiled" value="请选择文件">
-                <input type="file" name="md" class="btn-success">浏览</input>
-                <hr>
-            </li>
-            <li>
-                <input type="submit" value="上传"/>
-            </li>
-        </ul>
+    <label class="control-label">请选择markdown文件进行上传（确保后缀为.md）</label>
+    <form method="post" enctype="multipart/form-data" role="form" action="/blog/upload">
+        <input id="input" name="md" type="file" class="file" data-show-caption="true">
+        <hr>
+        <input type="submit" value="提交" class="btn-success btn-sm col-lg-12">
     </form>
 {% endblock %}

@@ -31,8 +31,8 @@
                 md_name_list.push($(this).val());
             });
             $.ajax({
-                url: "/blog/get_md_name_list",
-                type: "GET",
+                url: "/blog/markdowns",
+                type: "POST",
                 data: {
                     'md_name_list': md_name_list.join(',')
                 },
@@ -40,6 +40,7 @@
                 success: function (data) {
                     if(data['status'] == 'OK'){
                         alert("发布成功");
+                        location.reload();
                     }
                 }
             })

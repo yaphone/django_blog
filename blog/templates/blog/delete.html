@@ -31,8 +31,8 @@
                 md_name_list.push($(this).val());
             });
             $.ajax({
-                url: "/blog/delete_select_blog",
-                type: "GET",
+                url: "/blog/delete",
+                type: "POST",
                 data: {
                     'title_list': md_name_list.join(',')
                 },
@@ -40,6 +40,7 @@
                 success: function (data) {
                     if(data['status'] == 'OK'){
                         alert("删除成功");
+                        location.reload();
                     }
                 }
             })

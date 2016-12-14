@@ -7,8 +7,21 @@
         <div class="blog-post">
             <h2 class="blog-post-title">{{ blog.blog_title}}</h2>
             <p class="blog-post-meta">{{ blog.update_time }}
-            <p> {{ blog.blog_content| custom_markdown  }} </p>
+            <p> {{ blog.blog_content | custom_markdown  }} </p>
         </div><!-- /.blog-post -->
+        <hr>
+        <div><!--评论框-->
+            <form role="form" action="/blog/comment" method="post">
+                <div class="form-group">
+                    {% csrf_token %}
+                    <label for="name">请输入评论内容</label>
+                    <input type="hidden" name="blog_id" value={{blog.id}}>
+                    <textarea name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥"></textarea>
+                </div>
+                <input type="submit" class="col-lg-12 btn-success btn-lg" value="提交评论">
+            </form>
+        </div>
+        <hr>
     {% endfor %}
 {% endif %}
 {% endblock %}

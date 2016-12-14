@@ -1,7 +1,5 @@
 from django.test import TestCase
+import platform
 
 # Create your tests here.
-for i in range(10):
-    if i % 2 == 0:
-        continue
-    print i
+print platform.system()

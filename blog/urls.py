@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^delete$', views.delete, name='delete'),
     url(r'^get_all_title_info$', views.get_all_title_info, name='get_all_title_info'),
     url(r'^upload$', views.upload, name='upload'),
+    url(r'^comment$', views.comment, name='comment')
 
 ]

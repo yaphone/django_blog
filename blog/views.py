@@ -1,4 +1,4 @@
-#coding=utf-8
+﻿# -*- coding: utf-8 -*-
 
 from django.shortcuts import render
 from django.shortcuts import HttpResponse, HttpResponseRedirect
@@ -11,10 +11,11 @@ from django.utils import timezone
 from blogParser import parser
 import time
 import os
+import platform
 import json
 BASE_DIR = os.path.dirname(__file__)
 
-from .models import Blog
+from .models import Blog, Comment
 
 # Create your views here.
 def index(request):
@@ -97,7 +98,10 @@ def get_md_info(request):
     md_info_list = []  # 存储md文件信息列表
     for md in md_list:
         md_info = {}  # 存储单个md信息
-        md_info.setdefault('mdName', md[:len(md)-3]) #去掉'md'后缀
+        if 'Windows' in platform.system(): #Windows平台，os.listdir()采用gbk编码
+            md_info.setdefault('mdName', md[:len(md)-3].decode('gbk').encode('utf-8')) #去掉'md'后缀
+        else:  #其它平台
+            md_info.setdefault('mdName', md[:len(md) - 3])  # 去掉'md'后缀
         md_info_list.append(md_info)
     md_info_dict.setdefault('md', md_info_list)
     return JsonResponse(md_info_dict, safe=False)
@@ -108,7 +112,6 @@ def get_md_info(request):
 def delete(request):
     if request.method == "POST":
         blog_titles = request.POST.get('title_list')
-        print blog_titles
         if blog_titles:
             blog_title_list = blog_titles.split(',')
             for title in blog_title_list:
@@ -137,12 +140,20 @@ def get_all_title_info(request):
 def upload(request):
     if request.method == "POST":
         md = request.FILES.get('md')
-        print md
         if md:
             mdFile = open(os.path.join(BASE_DIR, 'static/markdowns/' + md.name), 'wb+')
             mdFile.write(md.read())
             mdFile.close()
     return render(request, 'blog/upload.html')
+
+def comment(request):
+    content = request.POST.get("content")
+    blog_id = request.POST.get("blog_id")
+    comment_time = timezone.now()
+    comment = Comment(blog_id=blog_id, content= content, comment_time=comment_time)
+    comment.save()
+    return JsonResponse({'status':'ok'})
+
 
 
 

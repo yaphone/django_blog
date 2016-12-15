@@ -14,5 +14,4 @@ def custom_markdown(value):
                                        extensions=['markdown.extensions.codehilite','markdown.extensions.fenced_code'],
                                        safe_mode=True,
                                        enable_attributes=False))
-    print res
     return res

@@ -12,7 +12,14 @@
             next_page_url = url + String(page_no + 1);
             $("#previous").attr("href", previous_page_url);
             $("#next").attr("href", next_page_url);
-
+        })
+        $(function(){
+            $("#search").click(function(){
+                var search_word = $("#search_word").val();
+                $.get('/blog/search_blog?search_word=' + search_word, function(data){
+                    alert(data);
+                });
+            });
         })
     </script>
 
@@ -45,6 +52,12 @@
     <div class="sidebar-module sidebar-module-inset">
         <h4>About</h4>
         <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+    </div>
+    <div>
+        <div class="input-group input-group-lg">
+            <input id="search_word" type="text" class="form-control" placeholder="文章搜索">
+            <span id="search" class="input-group-addon">搜索</span>
+        </div>
     </div>
     <div class="sidebar-module">
         <h4>Archives</h4>

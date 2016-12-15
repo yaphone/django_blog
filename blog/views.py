@@ -55,8 +55,9 @@ def auth(request):
     
 def detail(request):
     title = request.GET.get("title")
-    blog_list = Blog.objects.filter(blog_title = title)
-    context = {'blog_list': blog_list}
+    blog = Blog.objects.get(blog_title = title)  #get方法返回单个blog
+    comment_list = Comment.objects.filter(blog_id = blog.id).order_by('-comment_time')
+    context = {'blog': blog, 'comment_list': comment_list, }
     return render(request, 'blog/detail.html', context)
 
 
@@ -152,7 +153,16 @@ def comment(request):
     comment_time = timezone.now()
     comment = Comment(blog_id=blog_id, content= content, comment_time=comment_time)
     comment.save()
-    return JsonResponse({'status':'ok'})
+    return JsonResponse({'status':'OK'})
+
+def search_blog(request):
+    search_word = request.GET.get("search_word")
+    sql = "SELECT * FROM blog_blog WHERE blog_content LIKE '%%" + search_word + "%%' or blog_title LIKE '%%" + search_word + "%%'"
+    blog_list = Blog.objects.raw(sql)
+    for blog in blog_list:
+        print blog.blog_title
+    context = {'blog_list': blog_list}
+    return render(request, 'blog/index.html', context)
 
 
 

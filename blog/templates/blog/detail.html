@@ -1,13 +1,48 @@
 {% extends "blog/base.html" %}
+{% block head %}
+    <script>
+        $(document).ready(function(){
+            var csrf = $($("input[name='csrfmiddlewaretoken']").get(0)).val();
+            var blog_id = $("#blog_id").val();
+            $("#submit_comment").click(function(){
+                var content = $("#content").val();
+                $.ajax({
+                url: "/blog/comment",
+                type: "POST",
+                data: {
+                    'csrfmiddlewaretoken': csrf,
+                    'blog_id': blog_id,
+                    'content': content
+                },
+                traditional: true,
+                success: function (data) {
+                    if(data['status'] == 'OK'){
+                        alert("删除成功");
+                        location.reload();
+                    }
+                }
+            })
+            });
+        });
+    </script>
+{% endblock %}
 {% block content %}
     <div class="col-sm-12 blog-main">
 {% load custom_markdown %}
-{% if blog_list %}
-    {% for blog in blog_list%}
+{% if blog %}
         <div class="blog-post">
             <h2 class="blog-post-title">{{ blog.blog_title}}</h2>
             <p class="blog-post-meta">{{ blog.update_time }}
             <p> {{ blog.blog_content | custom_markdown  }} </p>
+            <hr>
+            <h3> 精彩评论</h3>
+            <hr/>
+            {% if comment_list %}
+                {% for comment in comment_list %}
+                    <p>{{comment.content | custom_markdown}}</p>
+                    <hr/>
+                {% endfor %}
+            {% endif %}
         </div><!-- /.blog-post -->
         <hr>
         <div><!--评论框-->
@@ -15,14 +50,13 @@
                 <div class="form-group">
                     {% csrf_token %}
                     <label for="name">请输入评论内容</label>
-                    <input type="hidden" name="blog_id" value={{blog.id}}>
-                    <textarea name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥"></textarea>
+                    <input id="blog_id" type="hidden" name="blog_id" value={{blog.id}}>
+                    <textarea id="content" name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥"></textarea>
                 </div>
-                <input type="submit" class="col-lg-12 btn-success btn-lg" value="提交评论">
             </form>
+            <button id="submit_comment" class="col-lg-12 btn-success btn-lg">提交评论</button>
         </div>
         <hr>
-    {% endfor %}
 {% endif %}
 {% endblock %}
     </div><!--main container>

@@ -1,5 +1,10 @@
 {% extends "blog/base.html" %}
 {% block head %}
+    <style>
+        .no-border {
+             border: 1px solid transparent !important;
+        }
+    </style>
     <script>
         $(document).ready(function(){
             var csrf = $($("input[name='csrfmiddlewaretoken']").get(0)).val();
@@ -17,7 +22,7 @@
                 traditional: true,
                 success: function (data) {
                     if(data['status'] == 'OK'){
-                        alert("删除成功");
+                        alert("评论成功");
                         location.reload();
                     }
                 }
@@ -35,11 +40,12 @@
             <p class="blog-post-meta">{{ blog.update_time }}
             <p> {{ blog.blog_content | custom_markdown  }} </p>
             <hr>
-            <h3> 精彩评论</h3>
+            <h3 style="text-align:right"> 精彩评论</h3>
             <hr/>
             {% if comment_list %}
                 {% for comment in comment_list %}
                     <p>{{comment.content | custom_markdown}}</p>
+                        <p style="text-align:right; font-size:8px; color:green"><button id="reply"> 回复 </button>  评论时间：{{comment.comment_time}}</p>
                     <hr/>
                 {% endfor %}
             {% endif %}
@@ -51,7 +57,7 @@
                     {% csrf_token %}
                     <label for="name">请输入评论内容</label>
                     <input id="blog_id" type="hidden" name="blog_id" value={{blog.id}}>
-                    <textarea id="content" name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥"></textarea>
+                    <textarea id="content" name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥，评论支持markdown语法哦"></textarea>
                 </div>
             </form>
             <button id="submit_comment" class="col-lg-12 btn-success btn-lg">提交评论</button>

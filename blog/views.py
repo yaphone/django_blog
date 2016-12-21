@@ -15,7 +15,7 @@ import platform
 import json
 BASE_DIR = os.path.dirname(__file__)
 
-from .models import Blog, Comment
+from .models import Blog, Comment, SubComment
 
 # Create your views here.
 def index(request):
@@ -57,7 +57,10 @@ def detail(request):
     title = request.GET.get("title")
     blog = Blog.objects.get(blog_title = title)  #get方法返回单个blog
     comment_list = Comment.objects.filter(blog_id = blog.id).order_by('-comment_time')
-    context = {'blog': blog, 'comment_list': comment_list, }
+    sub_comment_list = []
+    for comment in comment_list:
+        sub_comment_list += SubComment.objects.filter(comment_id = comment.id).order_by('-comment_time')
+    context = {'blog': blog, 'comment_list': comment_list, 'sub_comment_list': sub_comment_list}
     return render(request, 'blog/detail.html', context)
 
 
@@ -163,6 +166,14 @@ def search_blog(request):
         print blog.blog_title
     context = {'blog_list': blog_list}
     return render(request, 'blog/index.html', context)
+
+def sub_comment(request):
+    parent_comment_id = request.POST.get("parent_comment_id")
+    sub_comment_content = request.POST.get("sub_comment_content")
+    comment_time = timezone.now()
+    comment = SubComment(comment_id=parent_comment_id, content=sub_comment_content, comment_time=comment_time)
+    comment.save()
+    return JsonResponse({'status': 'OK'})
 
 
 

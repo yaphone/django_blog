@@ -12,23 +12,53 @@
             $("#submit_comment").click(function(){
                 var content = $("#content").val();
                 $.ajax({
-                url: "/blog/comment",
-                type: "POST",
-                data: {
-                    'csrfmiddlewaretoken': csrf,
-                    'blog_id': blog_id,
-                    'content': content
-                },
-                traditional: true,
-                success: function (data) {
-                    if(data['status'] == 'OK'){
-                        alert("评论成功");
-                        location.reload();
+                    url: "/blog/comment",
+                    type: "POST",
+                    data: {
+                        'csrfmiddlewaretoken': csrf,
+                        'blog_id': blog_id,
+                        'content': content
+                    },
+                    traditional: true,
+                    success: function (data) {
+                        if(data['status'] == 'OK'){
+                            alert("评论成功");
+                            location.reload();
+                        }
                     }
-                }
-            })
+                });
             });
         });
+        $(function(){
+            $($("button[name='reply']").each(function(){})).click(function(){
+                    var comment_id = $(this).val();
+                    $("#div"+comment_id.toString()).toggle(1000);
+                });
+        });
+        $(function(){
+            $($("button[name='sub_submit_comment']").each(function(){})).click(function(){
+                    var csrf = $($("input[name='csrfmiddlewaretoken']").get(0)).val();
+                    var parent_comment_id = $(this).val();
+                    var sub_comment_content = $("#sub_comment" + parent_comment_id.toString()).val(); //获取二级评论内容
+                    $.ajax({
+                    url: "/blog/sub_comment",
+                    type: "POST",
+                    data: {
+                        'csrfmiddlewaretoken': csrf,
+                        'parent_comment_id': parent_comment_id,
+                        'sub_comment_content': sub_comment_content
+                    },
+                    traditional: true,
+                    success: function (data) {
+                        if(data['status'] == 'OK'){
+                            alert("评论成功");
+                            location.reload();
+                        }
+                    }
+                });
+                });
+        });
+
     </script>
 {% endblock %}
 {% block content %}
@@ -44,9 +74,24 @@
             <hr/>
             {% if comment_list %}
                 {% for comment in comment_list %}
-                    <p>{{comment.content | custom_markdown}}</p>
-                        <p style="text-align:right; font-size:8px; color:green"><button id="reply"> 回复 </button>  评论时间：{{comment.comment_time}}</p>
-                    <hr/>
+                    <div>
+                        <p>{{comment.content | custom_markdown}}</p>
+                        <hr/>
+                        {% if sub_comment_list%}
+                            {% for sub_comment in sub_comment_list %}
+                                {% if sub_comment.comment_id == comment.id %}
+                                    <p>{{sub_comment.content | custom_markdown}}</p>
+                                    <p style="text-align:right; font-size:8px; color:green">评论时间：{{comment.comment_time}}</p>
+                                    <hr/>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        <p style="text-align:right; font-size:8px; color:green"><button value={{comment.id}} name="reply"> 回复 </button>  评论时间：{{comment.comment_time}}</p>
+                        <div id="div{{comment.id}}" style="display:none">
+                            <textarea id="sub_comment{{comment.id}}" name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥，评论支持markdown语法哦"></textarea>
+                            <button name="sub_submit_comment" value="{{comment.id}}" class="col-lg-12 btn btn-sm">提交评论</button>
+                        </div>
+                    </div>
                 {% endfor %}
             {% endif %}
         </div><!-- /.blog-post -->

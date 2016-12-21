@@ -15,3 +15,8 @@ class Comment(models.Model):
     blog = models.ForeignKey(Blog, on_delete = models.CASCADE)
     comment_time = models.DateTimeField()
     content = models.TextField(max_length = 2000)
+
+class SubComment(models.Model):
+    comment = models.ForeignKey(Comment, on_delete = models.CASCADE)
+    comment_time = models.DateTimeField()
+    content = models.TextField(max_length=2000)

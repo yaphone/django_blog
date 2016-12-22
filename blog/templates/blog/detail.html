@@ -70,6 +70,8 @@
             <p class="blog-post-meta">{{ blog.update_time }}
             <p> {{ blog.blog_content | custom_markdown  }} </p>
             <hr>
+        </div><!-- /.blog-post -->
+        <div style="background-color:#F5F5F5"><!--文章评论-->
             <h3 style="text-align:right"> 精彩评论</h3>
             <hr/>
             {% if comment_list %}
@@ -79,9 +81,9 @@
                         <hr/>
                         {% if sub_comment_list%}
                             {% for sub_comment in sub_comment_list %}
-                                {% if sub_comment.comment_id == comment.id %}
-                                    <p>{{sub_comment.content | custom_markdown}}</p>
-                                    <p style="text-align:right; font-size:8px; color:green">评论时间：{{comment.comment_time}}</p>
+                                {% if sub_comment.comment_id == comment.id %}<!-- 二级评论 -->
+                                    <p><span style="padding-left:2em;"></span><span style="font-size:10px; color:blue">{{sub_comment.content}}</span></p>
+                                    <!-- <p style="text-align:right; font-size:8px; color:green">评论时间：{{comment.comment_time}}</p> -->
                                     <hr/>
                                 {% endif %}
                             {% endfor %}
@@ -94,8 +96,8 @@
                     </div>
                 {% endfor %}
             {% endif %}
-        </div><!-- /.blog-post -->
         <hr>
+        </div><!--文章评论结束-->
         <div><!--评论框-->
             <form role="form" action="/blog/comment" method="post">
                 <div class="form-group">

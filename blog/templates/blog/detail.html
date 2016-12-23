@@ -11,13 +11,23 @@
             var blog_id = $("#blog_id").val();
             $("#submit_comment").click(function(){
                 var content = $("#content").val();
+                var nickname = $("#nickname").val();
+                if(nickname.length == 0){
+                    alert("请输入昵称");
+                    return;
+                }
+                if(content.length == 0){
+                    alert("请输入评论内容");
+                    return;
+                }
                 $.ajax({
                     url: "/blog/comment",
                     type: "POST",
                     data: {
                         'csrfmiddlewaretoken': csrf,
                         'blog_id': blog_id,
-                        'content': content
+                        'content': content,
+                        'nickname': nickname
                     },
                     traditional: true,
                     success: function (data) {
@@ -40,13 +50,23 @@
                     var csrf = $($("input[name='csrfmiddlewaretoken']").get(0)).val();
                     var parent_comment_id = $(this).val();
                     var sub_comment_content = $("#sub_comment" + parent_comment_id.toString()).val(); //获取二级评论内容
+                    var nickname = $("#sub_nickname" + parent_comment_id.toString()).val();
+                    if(nickname.length == 0){
+                        alert("请输入昵称");
+                        return;
+                    }
+                    if(content.length == 0){
+                        alert("请输入评论内容");
+                        return;
+                    }
                     $.ajax({
                     url: "/blog/sub_comment",
                     type: "POST",
                     data: {
                         'csrfmiddlewaretoken': csrf,
                         'parent_comment_id': parent_comment_id,
-                        'sub_comment_content': sub_comment_content
+                        'sub_comment_content': sub_comment_content,
+                        'nickname': nickname
                     },
                     traditional: true,
                     success: function (data) {
@@ -77,19 +97,23 @@
             {% if comment_list %}
                 {% for comment in comment_list %}
                     <div>
+                        <p style="text-align:left; font-size:10px; color:green"> <span style="color:red;">{{comment.nickname}}</span> 发表于<span style="color:black">{{comment.comment_time}}</span> <button value={{comment.id}} name="reply"> 回复 </button></p>
                         <p>{{comment.content | custom_markdown}}</p>
                         <hr/>
                         {% if sub_comment_list%}
                             {% for sub_comment in sub_comment_list %}
                                 {% if sub_comment.comment_id == comment.id %}<!-- 二级评论 -->
-                                    <p><span style="padding-left:2em;"></span><span style="font-size:10px; color:blue">{{sub_comment.content}}</span></p>
+                                    <div style="background-color:#D0D0D0">
+                                        <p style="font-size:10px; color:green"><span style="padding-left:2em;"></span> <span style="color:red;">{{sub_comment.nickname}}</span> 发表于<span style="color:black">{{sub_comment.comment_time}}</span></p>
+                                        <p><span style="padding-left:2em;"></span><span style="font-size: 14px; color:blue">{{sub_comment.content}}</span></p>
+                                    </div>
                                     <!-- <p style="text-align:right; font-size:8px; color:green">评论时间：{{comment.comment_time}}</p> -->
                                     <hr/>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
-                        <p style="text-align:right; font-size:8px; color:green"><button value={{comment.id}} name="reply"> 回复 </button>  评论时间：{{comment.comment_time}}</p>
                         <div id="div{{comment.id}}" style="display:none">
+                            <input id="sub_nickname{{comment.id}}" placeholder="请输入昵称">
                             <textarea id="sub_comment{{comment.id}}" name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥，评论支持markdown语法哦"></textarea>
                             <button name="sub_submit_comment" value="{{comment.id}}" class="col-lg-12 btn btn-sm">提交评论</button>
                         </div>
@@ -104,6 +128,7 @@
                     {% csrf_token %}
                     <label for="name">请输入评论内容</label>
                     <input id="blog_id" type="hidden" name="blog_id" value={{blog.id}}>
+                    <p><input id="nickname" placeholder="请输入昵称"></p>
                     <textarea id="content" name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥，评论支持markdown语法哦"></textarea>
                 </div>
             </form>

@@ -151,10 +151,12 @@ def upload(request):
     return render(request, 'blog/upload.html')
 
 def comment(request):
+    nickname = request.POST.get("nickname")
+    print nickname
     content = request.POST.get("content")
     blog_id = request.POST.get("blog_id")
     comment_time = timezone.now()
-    comment = Comment(blog_id=blog_id, content= content, comment_time=comment_time)
+    comment = Comment(nickname=nickname, blog_id=blog_id, content= content, comment_time=comment_time)
     comment.save()
     return JsonResponse({'status':'OK'})
 
@@ -168,10 +170,12 @@ def search_blog(request):
     return render(request, 'blog/index.html', context)
 
 def sub_comment(request):
+    nickname = request.POST.get("nickname")
     parent_comment_id = request.POST.get("parent_comment_id")
     sub_comment_content = request.POST.get("sub_comment_content")
+    print nickname
     comment_time = timezone.now()
-    comment = SubComment(comment_id=parent_comment_id, content=sub_comment_content, comment_time=comment_time)
+    comment = SubComment(nickname=nickname, comment_id=parent_comment_id, content=sub_comment_content, comment_time=comment_time)
     comment.save()
     return JsonResponse({'status': 'OK'})
 

@@ -20,8 +20,6 @@ from .models import Blog, Comment, SubComment
 # Create your views here.
 def index(request):
     blog_show_num = 5  #每页显示文章数目
-    show_start = 0;
-    show_end = 5
     page_no = 0  #当前页数
     try:
         page_no = int(request.GET['page_no'])
@@ -29,8 +27,20 @@ def index(request):
         pass
     show_start = page_no * blog_show_num
     show_end = show_start + 5
-    blog_list = Blog.objects.order_by('-update_time')[show_start:show_end]
-    context = {'blog_list': blog_list, 'page_no': page_no}
+    all_blog_list = Blog.objects.order_by('-update_time')
+    sum_blog = len(all_blog_list) #博文总数，分页使用
+    is_last_page = 'false' #判断当前是否是最后一页
+    if blog_show_num * (page_no + 1) > sum_blog:
+        is_last_page = 'true'
+    blog_list = all_blog_list[show_start:show_end]
+    #搜索功能
+    search_word = request.GET.get("search_word")
+    if search_word:
+        sql = "SELECT * FROM blog_blog WHERE blog_content LIKE '%%" + search_word + "%%' or blog_title LIKE '%%" + search_word + "%%'"
+        blog_list = Blog.objects.raw(sql)
+        context = {'blog_list': blog_list}
+        return render(request, 'blog/index.html', context)
+    context = {'blog_list': blog_list, 'page_no': page_no, 'is_last_page': is_last_page}
     return render(request, 'blog/index.html', context)
 
 def user_logout(request):

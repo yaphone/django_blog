@@ -38,8 +38,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blog/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3503">
-              <caret line="177" column="29" lean-forward="false" selection-start-line="177" selection-start-column="29" selection-end-line="177" selection-end-column="29" />
+            <state relative-caret-position="1020">
+              <caret line="34" column="50" lean-forward="true" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
               <folding>
                 <element signature="e#25#60#0" expanded="true" />
               </folding>
@@ -60,8 +60,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blog/templates/blog/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="53" column="19" lean-forward="false" selection-start-line="53" selection-start-column="19" selection-end-line="53" selection-end-column="19" />
+            <state relative-caret-position="450">
+              <caret line="27" column="43" lean-forward="false" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -147,7 +147,7 @@
       <file leaf-file-name="delete.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blog/templates/blog/delete.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1050">
+            <state relative-caret-position="785">
               <caret line="35" column="23" lean-forward="false" selection-start-line="32" selection-start-column="12" selection-end-line="45" selection-end-column="14" />
               <folding />
             </state>
@@ -202,9 +202,9 @@
         <option value="$PROJECT_DIR$/blog/templatetags/custom_markdown.py" />
         <option value="$PROJECT_DIR$/blog/urls.py" />
         <option value="$PROJECT_DIR$/blog/models.py" />
-        <option value="$PROJECT_DIR$/blog/views.py" />
         <option value="$PROJECT_DIR$/blog/templates/blog/detail.html" />
         <option value="$PROJECT_DIR$/mysite/settings.py" />
+        <option value="$PROJECT_DIR$/blog/views.py" />
         <option value="$PROJECT_DIR$/blog/templates/blog/index.html" />
       </list>
     </option>
@@ -650,7 +650,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1924" height="1047" extended-state="1" />
+    <frame x="-7" y="0" width="1924" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16171792" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -985,14 +985,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blog/templates/blog/delete.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
-          <caret line="35" column="23" lean-forward="false" selection-start-line="32" selection-start-column="12" selection-end-line="45" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blog/templates/blog/markdown.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1770">
@@ -1016,16 +1008,6 @@
           <folding>
             <marker date="1482494502766" expanded="true" signature="444:646" ph="..." />
             <marker date="1482494502766" expanded="true" signature="679:885" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blog/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3503">
-          <caret line="177" column="29" lean-forward="false" selection-start-line="177" selection-start-column="29" selection-end-line="177" selection-end-column="29" />
-          <folding>
-            <element signature="e#25#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1060,10 +1042,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/blog/templates/blog/delete.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="785">
+          <caret line="35" column="23" lean-forward="false" selection-start-line="32" selection-start-column="12" selection-end-line="45" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blog/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="34" column="50" lean-forward="true" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+          <folding>
+            <element signature="e#25#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/blog/templates/blog/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="53" column="19" lean-forward="false" selection-start-line="53" selection-start-column="19" selection-end-line="53" selection-end-column="19" />
+        <state relative-caret-position="450">
+          <caret line="27" column="43" lean-forward="false" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
           <folding />
         </state>
       </provider>

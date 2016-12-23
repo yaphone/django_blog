@@ -3,22 +3,30 @@
     <script>
         $(function () {
             var page_no = parseInt($("#page_no").val());
+            var is_last_page = $("#is_last_page").val();
             var url = "/blog/index?page_no=";
             var previous_page_url = url;
             var next_page_url = url;
-            if (page_no != 0){
+            if (page_no != 0){  //首页
                 previous_page_url = url + String(page_no - 1);
+            }else{
+
             }
-            next_page_url = url + String(page_no + 1);
+            if(is_last_page == "true"){//最后一页
+                alert("您已到达最后一页");
+                next_page_url = url + String(page_no);
+            }else{
+                next_page_url = url + String(page_no + 1);
+            }
             $("#previous").attr("href", previous_page_url);
             $("#next").attr("href", next_page_url);
         })
         $(function(){
             $("#search").click(function(){
                 var search_word = $("#search_word").val();
-                $.get('/blog/search_blog?search_word=' + search_word, function(data){
-                    alert(data);
-                });
+                var url = '/blog/index?search_word=' + search_word;
+                window.location.href = url;
+
             });
         })
     </script>
@@ -40,6 +48,7 @@
         <nav>
             <ul class="pager">
                 <li><input id="page_no" type="hidden" value={{ page_no }}> </li>
+                <li><input id="is_last_page" type="hidden" value={{ is_last_page }}> </li>
                 <li><a id="previous" href="#">Previous</a></li>
                 <li><a id="next" href="#">Next</a></li>
             </ul>

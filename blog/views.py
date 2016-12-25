@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from blogParser import parser
+from collections import Counter
 import time
 import os
 import platform
@@ -30,7 +31,16 @@ def index(request):
     all_blog_list = Blog.objects.order_by('-update_time')
     sum_blog = len(all_blog_list) #博文总数，分页使用
     is_last_page = 'false' #判断当前是否是最后一页
-    if blog_show_num * (page_no + 1) > sum_blog:
+    # 最近十篇文章
+    if sum_blog >= 10:
+        latest_blog_title_list = [blog.blog_title for blog in all_blog_list[:10]]
+    else:
+        latest_blog_title_list = [blog.blog_title for blog in all_blog_list[:sum_blog]]
+    # 归档分类
+    classify_list = [blog.blog_type for blog in all_blog_list]
+    classify_dict = dict(Counter(classify_list))
+
+    if blog_show_num * (page_no + 1) >= sum_blog:  #判断是否在最后一页
         is_last_page = 'true'
     blog_list = all_blog_list[show_start:show_end]
     #搜索功能
@@ -38,9 +48,20 @@ def index(request):
     if search_word:
         sql = "SELECT * FROM blog_blog WHERE blog_content LIKE '%%" + search_word + "%%' or blog_title LIKE '%%" + search_word + "%%'"
         blog_list = Blog.objects.raw(sql)
-        context = {'blog_list': blog_list}
+        context = {'blog_list': blog_list, 'page': 'false'}
         return render(request, 'blog/index.html', context)
-    context = {'blog_list': blog_list, 'page_no': page_no, 'is_last_page': is_last_page}
+
+    #归档分类
+    classify = request.GET.get("classify")
+    if classify:
+        sql = "SELECT * FROM blog_blog WHERE blog_type='" + classify + "'"
+        print sql
+        blog_list = blog_list = Blog.objects.raw(sql)
+        context = {'blog_list': blog_list, 'page': 'false'}
+        return render(request, 'blog/index.html', context)
+
+    context = {'blog_list': blog_list, 'page_no': page_no, 'is_last_page': is_last_page, 'latest_blog_title_list': latest_blog_title_list,
+               'classify_dict': classify_dict, 'page':'true'}
     return render(request, 'blog/index.html', context)
 
 def user_logout(request):

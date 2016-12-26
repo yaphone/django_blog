@@ -137,9 +137,8 @@ def get_md_info(request):
             md_info.setdefault('mdName', md[:len(md)-3].decode('gbk').encode('utf-8')) #去掉'md'后缀
         else:  #其它平台
             md_info.setdefault('mdName', md[:len(md) - 3])  # 去掉'md'后缀
-            md_info_list.append(md_info)
+        md_info_list.append(md_info)
     md_info_dict.setdefault('md', md_info_list)
-    #print md_info_dict 
     return JsonResponse(md_info_dict, safe=False)
 
 

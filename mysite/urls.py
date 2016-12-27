@@ -20,6 +20,7 @@ from django.contrib.auth.views import login
 
 
 urlpatterns = [
+    url(r'^', include('blog.urls')),
     url(r'^blog/', include('blog.urls')),
     url(r'^admin/', admin.site.urls),
     url('^', include('django.contrib.auth.urls')),

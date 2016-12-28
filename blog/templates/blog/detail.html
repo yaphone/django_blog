@@ -4,6 +4,12 @@
         .no-border {
              border: 1px solid transparent !important;
         }
+        .head_icon {
+            background-color:red;
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+	    }
     </style>
     <script>
         $(document).ready(function(){
@@ -78,6 +84,18 @@
                 });
                 });
         });
+        $(function(){ //打开or关闭评论内容
+            $("#comment_button").click(function(){
+                $("#comment_div").toggle(1000);
+            });
+        });
+        $(function(){
+            var colors = ["red", "blue", "green", "yellow", "black", "grey"];
+            $(".head_icon").each(function(){
+                var index = Math.floor(Math.random()*5);
+                $(this).css('background-color', colors[index]);
+            });
+        })
 
     </script>
 {% endblock %}
@@ -86,29 +104,39 @@
 {% load custom_markdown %}
 {% if blog %}
         <div class="blog-post">
-            <h2 class="blog-post-title">{{ blog.blog_title}}</h2>
-            <p class="blog-post-meta">{{ blog.update_time }}
+            <h2 class="blog-post-title" align="center">{{ blog.blog_title}}</h2>
+            <p class="blog-post-meta" align="center">{{ blog.update_time }}
+                <span style="padding-left:2em;">阅读次数:{{ blog.reading_count }}</span>
             <p> {{ blog.blog_content | custom_markdown  }} </p>
             <hr>
         </div><!-- /.blog-post -->
-        <div style="background-color:#F5F5F5"><!--文章评论-->
-            <h3 style="text-align:right"> 精彩评论</h3>
+        <button id="comment_button" class="btn-lg btn-primary col-lg-12">评论</button>
+        <hr>
+        <hr>
+        <div id="comment_div" style="display:none; background-color:#F5F5F5"><!--文章评论-->
             <hr/>
             {% if comment_list %}
                 {% for comment in comment_list %}
                     <div>
-                        <p style="text-align:left; font-size:10px; color:green"> <span style="color:red;">{{comment.nickname}}</span> 发表于<span style="color:black">{{comment.comment_time}}</span> <button value={{comment.id}} name="reply"> 回复 </button></p>
+                        <p style="text-align:left; font-size:10px; color:green">
+                            <span><button class="head_icon"></button></span>
+                            <span style="color:red;">{{comment.nickname}}</span> 发表于
+                            <span style="color:black">{{comment.comment_time}}</span>
+                            <button value={{comment.id}} name="reply"> 回复 </button></p>
                         <p>{{comment.content | custom_markdown}}</p>
                         <hr/>
                         {% if sub_comment_list%}
                             {% for sub_comment in sub_comment_list %}
                                 {% if sub_comment.comment_id == comment.id %}<!-- 二级评论 -->
                                     <div style="background-color:#D0D0D0">
-                                        <p style="font-size:10px; color:green"><span style="padding-left:2em;"></span> <span style="color:red;">{{sub_comment.nickname}}</span> 发表于<span style="color:black">{{sub_comment.comment_time}}</span></p>
-                                        <p><span style="padding-left:2em;"></span><span style="font-size: 14px; color:blue">{{sub_comment.content}}</span></p>
+                                        <p style="font-size:10px; color:green">
+                                            <span style="padding-left:2em;"></span>
+                                            <span><button class="head_icon"></button></span>
+                                            <span style="color:red;">{{sub_comment.nickname}}</span> 发表于
+                                            <span style="color:black">{{sub_comment.comment_time}}</span></p>
+                                        <span style="padding-left:2em;"></span><span style="font-size: 14px; color:blue">{{sub_comment.content}}</span>
                                     </div>
                                     <!-- <p style="text-align:right; font-size:8px; color:green">评论时间：{{comment.comment_time}}</p> -->
-                                    <hr/>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
@@ -121,20 +149,21 @@
                 {% endfor %}
             {% endif %}
         <hr>
-        </div><!--文章评论结束-->
-        <div><!--评论框-->
-            <form role="form" action="/blog/comment" method="post">
-                <div class="form-group">
-                    {% csrf_token %}
-                    <label for="name">请输入评论内容</label>
-                    <input id="blog_id" type="hidden" name="blog_id" value={{blog.id}}>
-                    <p><input id="nickname" placeholder="请输入昵称"></p>
-                    <textarea id="content" name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥，评论支持markdown语法哦"></textarea>
-                </div>
-            </form>
-            <button id="submit_comment" class="col-lg-12 btn-success btn-lg">提交评论</button>
-        </div>
+            <div><!--评论框-->
+                <form role="form" action="/blog/comment" method="post">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <label for="name">请输入评论内容</label>
+                        <input id="blog_id" type="hidden" name="blog_id" value={{blog.id}}>
+                        <p><input id="nickname" placeholder="请输入昵称"></p>
+                        <textarea id="content" name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥，评论支持markdown语法哦"></textarea>
+                    </div>
+                </form>
+                <button id="submit_comment" class="col-lg-12 btn-success btn-lg">提交评论</button>
+            </div>
         <hr>
+        </div><!--文章评论结束-->
+
 {% endif %}
 {% endblock %}
     </div><!--main container>

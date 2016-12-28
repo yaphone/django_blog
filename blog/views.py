@@ -95,7 +95,7 @@ def detail(request):
     return render(request, 'blog/detail.html', context)
 
 
-#返回所有的markdown文件页面
+#新建、更新博客
 @csrf_exempt
 @login_required
 def markdowns(request):
@@ -108,15 +108,17 @@ def markdowns(request):
             if md_name in blog_title_list:
                 blog = Blog.objects.get(blog_title=md_name)
                 blog_id = blog.id
+                update_time = blog.update_time
             else:
                 blog_id = None
+                update_time = timezone.now()
             file_path = os.path.join(BASE_DIR, 'static/markdowns/' + md_name + '.md')
             blog_dict = parser(file_path)
             title = blog_dict['title']
             classify = blog_dict['classify']
             keywords = blog_dict['keywords']
             content = blog_dict['content']
-            blog = Blog(id=blog_id, blog_title=title, blog_content=content, update_time=timezone.now(),
+            blog = Blog(id=blog_id, blog_title=title, blog_content=content, update_time=update_time,
                         modify_time=timezone.now(), blog_tag=keywords, blog_type=classify)
             blog.save()
         return JsonResponse({'status': 'OK'})

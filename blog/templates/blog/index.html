@@ -10,11 +10,10 @@
             if (page_no != 0){  //首页
                 previous_page_url = url + String(page_no - 1);
             }else{
-
+                $("#previous").hide();
             }
             if(is_last_page == "true"){//最后一页
-                alert("您已到达最后一页");
-                next_page_url = url + String(page_no);
+                $("#next").hide();
             }else{
                 next_page_url = url + String(page_no + 1);
             }
@@ -45,8 +44,8 @@
 {% if blog_list %}
 	{% for blog in blog_list%}
 		<div class="blog-post">
-		    <h2 class="blog-post-title">{{ blog.blog_title}}</h2>
-            <p class="blog-post-meta">{{ blog.update_time }} <a href="/blog/detail?title={{blog.blog_title}}">Read more</a></p>
+		    <h2 class="blog-post-title" align="center">{{ blog.blog_title}}</h2>
+            <p class="blog-post-meta" align="center">{{ blog.update_time }} <a href="/blog/detail?title={{blog.blog_title}}">Read more</a></p>
             <p> {{ blog.blog_content | slice:"100" | custom_markdown}} </p>
             <hr>
         </div><!-- /.blog-post -->

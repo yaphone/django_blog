@@ -54,9 +54,8 @@ def index(request):
     #归档分类
     classify = request.GET.get("classify")
     if classify:
-        sql = "SELECT * FROM blog_blog WHERE blog_type='" + classify + "'"
-        print sql
-        blog_list = blog_list = Blog.objects.raw(sql)
+        sql = "SELECT * FROM blog_blog WHERE blog_type LIKE '%%" + classify + "%%'"
+        blog_list = Blog.objects.raw(sql)
         context = {'blog_list': blog_list, 'page': 'false'}
         return render(request, 'blog/index.html', context)
 
@@ -87,6 +86,9 @@ def auth(request):
 def detail(request):
     title = request.GET.get("title")
     blog = Blog.objects.get(blog_title = title)  #get方法返回单个blog
+    #每次查询阅读次数加1
+    Blog(id=blog.id, blog_title=blog.blog_title, blog_content=blog.blog_content, update_time=blog.update_time,
+                        modify_time=timezone.now(), blog_tag=blog.blog_tag, blog_type=blog.blog_type, reading_count=blog.reading_count + 1).save()
     comment_list = Comment.objects.filter(blog_id = blog.id).order_by('-comment_time')
     sub_comment_list = []
     for comment in comment_list:
@@ -109,9 +111,11 @@ def markdowns(request):
                 blog = Blog.objects.get(blog_title=md_name)
                 blog_id = blog.id
                 update_time = blog.update_time
+                reading_count = blog.reading_count
             else:
                 blog_id = None
                 update_time = timezone.now()
+                reading_count = 1  #默认阅读次数为1
             file_path = os.path.join(BASE_DIR, 'static/markdowns/' + md_name + '.md')
             blog_dict = parser(file_path)
             title = blog_dict['title']
@@ -119,7 +123,7 @@ def markdowns(request):
             keywords = blog_dict['keywords']
             content = blog_dict['content']
             blog = Blog(id=blog_id, blog_title=title, blog_content=content, update_time=update_time,
-                        modify_time=timezone.now(), blog_tag=keywords, blog_type=classify)
+                        modify_time=timezone.now(), blog_tag=keywords, blog_type=classify, reading_count=reading_count)
             blog.save()
         return JsonResponse({'status': 'OK'})
     if request.method == 'GET':

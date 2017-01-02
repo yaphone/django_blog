@@ -96,6 +96,13 @@
                 $(this).css('background-color', colors[index]);
             });
         })
+        $(function(){
+            var music = $("#music").html();
+            if($("#music") != "null"){
+                $("#music_url source").attr("src", music);
+                $("#music_url")[0].load();
+            }
+        });
 
     </script>
 {% endblock %}
@@ -103,6 +110,13 @@
     <div class="col-sm-12 blog-main">
 {% load custom_markdown %}
 {% if blog %}
+
+        <div style="display:none">
+            <p id="music" style="display:none">{{blog.music}}</p>
+                <audio id="music_url" autoplay="autoplay">
+                    <source src="" />
+                </audio>
+        </div>
         <div class="blog-post">
             <h2 class="blog-post-title" align="center">{{ blog.blog_title}}</h2>
             <p class="blog-post-meta" align="center">{{ blog.update_time }}

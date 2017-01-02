@@ -35,6 +35,7 @@
             }
         })
     </script>
+    <script>$( function() { $( 'audio' ).audioPlayer(); } );</script>
 
 {% endblock %}
 
@@ -68,7 +69,7 @@
         <h4>About</h4>
         <p>欢迎光临我的博客</p>
     </div>
-    <audio controls>
+    <audio controls preload="auto" loop>
         <source src="http://oj3wjy4b8.bkt.clouddn.com/%E8%B5%B5%E9%9B%B7%20-%20%E6%88%90%E9%83%BD.mp3" type="audio/mpeg" />
     </audio>
     <hr>

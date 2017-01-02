@@ -1,3 +1,5 @@
+MUSIC:http://oj3wjy4b8.bkt.clouddn.com/%E8%B5%B5%E9%9B%B7%20-%20%E6%88%90%E9%83%BD.mp3
+
 TITLE:HelloWorld
 CLASSIFY:技术
 KEYWORDS:测试、第一篇

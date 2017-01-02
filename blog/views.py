@@ -88,7 +88,8 @@ def detail(request):
     blog = Blog.objects.get(blog_title = title)  #get方法返回单个blog
     #每次查询阅读次数加1
     Blog(id=blog.id, blog_title=blog.blog_title, blog_content=blog.blog_content, update_time=blog.update_time,
-                        modify_time=timezone.now(), blog_tag=blog.blog_tag, blog_type=blog.blog_type, reading_count=blog.reading_count + 1).save()
+            modify_time=timezone.now(), blog_tag=blog.blog_tag, blog_type=blog.blog_type, music = blog.music,
+            reading_count=blog.reading_count + 1).save()
     comment_list = Comment.objects.filter(blog_id = blog.id).order_by('-comment_time')
     sub_comment_list = []
     for comment in comment_list:
@@ -122,8 +123,10 @@ def markdowns(request):
             classify = blog_dict['classify']
             keywords = blog_dict['keywords']
             content = blog_dict['content']
+            music = blog_dict['music']
+            print music
             blog = Blog(id=blog_id, blog_title=title, blog_content=content, update_time=update_time,
-                        modify_time=timezone.now(), blog_tag=keywords, blog_type=classify, reading_count=reading_count)
+                        modify_time=timezone.now(), blog_tag=keywords, blog_type=classify, reading_count=reading_count, music=music)
             blog.save()
         return JsonResponse({'status': 'OK'})
     if request.method == 'GET':

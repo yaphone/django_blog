@@ -18,11 +18,16 @@
             $("#submit_comment").click(function(){
                 var content = $("#content").val();
                 var nickname = $("#nickname").val();
-                if(nickname.length == 0){
+                var email = $("#email").val();
+                if($.trim(nickname).length == 0){ //去掉左右空格后长度为零时，检测昵称是否为空
                     alert("请输入昵称");
                     return;
                 }
-                if(content.length == 0){
+                if($.trim(email).length == 0 || !validateEmail(email)){ //去掉左右空格后长度为零时，检测昵称是否为空
+                    alert("请输入有效的email地址，此地址仅作为作者回复信息使用，对其他人保密");
+                    return;
+                }
+                if($.trim(content).length == 0){  //去掉左右空格后长度为零时，检测评论内容是否为空
                     alert("请输入评论内容");
                     return;
                 }
@@ -33,7 +38,8 @@
                         'csrfmiddlewaretoken': csrf,
                         'blog_id': blog_id,
                         'content': content,
-                        'nickname': nickname
+                        'nickname': nickname,
+                        'email': email,
                     },
                     traditional: true,
                     success: function (data) {
@@ -51,17 +57,22 @@
                     $("#div"+comment_id.toString()).toggle(1000);
                 });
         });
-        $(function(){
+        $(function(){ //二级评论
             $($("button[name='sub_submit_comment']").each(function(){})).click(function(){
                     var csrf = $($("input[name='csrfmiddlewaretoken']").get(0)).val();
                     var parent_comment_id = $(this).val();
                     var sub_comment_content = $("#sub_comment" + parent_comment_id.toString()).val(); //获取二级评论内容
                     var nickname = $("#sub_nickname" + parent_comment_id.toString()).val();
-                    if(nickname.length == 0){
+                    var email = $("#sub_email" + parent_comment_id.toString()).val();
+                    if($.trim(nickname).length == 0){
                         alert("请输入昵称");
                         return;
                     }
-                    if(content.length == 0){
+                    if($.trim(email).length == 0 || !validateEmail(email)){ //去掉左右空格后长度为零时，检测昵称是否为空
+                        alert("请输入有效的email地址，此地址仅作为作者回复信息使用，对其他人保密");
+                        return;
+                    }
+                    if($.trim(content).length == 0){
                         alert("请输入评论内容");
                         return;
                     }
@@ -89,21 +100,24 @@
                 $("#comment_div").toggle(1000);
             });
         });
-        $(function(){
+        $(function(){  //给每条评论加个圆形头像，更美观些吧
             var colors = ["red", "blue", "green", "yellow", "black", "grey"];
             $(".head_icon").each(function(){
                 var index = Math.floor(Math.random()*5);
                 $(this).css('background-color', colors[index]);
             });
         })
-        $(function(){
+        $(function(){ //如果有背景音乐，添加之
             var music = $("#music").html();
             if($("#music") != "null"){
                 $("#music_url source").attr("src", music);
                 $("#music_url")[0].load();
             }
         });
-
+        function validateEmail(email) { //检测email是否有效函数
+           var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
     </script>
 {% endblock %}
 {% block content %}
@@ -155,9 +169,10 @@
                             {% endfor %}
                         {% endif %}
                         <div id="div{{comment.id}}" style="display:none">
-                            <input id="sub_nickname{{comment.id}}" placeholder="请输入昵称">
+                            <input id="sub_nickname{{comment.id}}" class="col-lg-6" placeholder="请输入昵称">
+                            <input id="sub_email{{comment.id}}" class="col-lg-6" type="email" placeholder="请输入邮箱，此内容保密">
                             <textarea id="sub_comment{{comment.id}}" name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥，评论支持markdown语法哦"></textarea>
-                            <button name="sub_submit_comment" value="{{comment.id}}" class="col-lg-12 btn btn-sm">提交评论</button>
+                            <button name="sub_submit_comment" value="{{comment.id}}" class="col-lg-12 btn-success btn-sm">提交评论</button>
                         </div>
                     </div>
                 {% endfor %}
@@ -167,9 +182,9 @@
                 <form role="form" action="/blog/comment" method="post">
                     <div class="form-group">
                         {% csrf_token %}
-                        <label for="name">请输入评论内容</label>
-                        <input id="blog_id" type="hidden" name="blog_id" value={{blog.id}}>
-                        <p><input id="nickname" placeholder="请输入昵称"></p>
+                        <input id="blog_id" type="hidden" name="blog_id" value={{blog.id}}>  <!-- 一级评论在保存时用的foreign key是blog id -->
+                        <input id="nickname" class="col-lg-12" placeholder="请输入昵称">
+                        <input id="email" class="col-lg-12" type="email" placeholder="请输入邮箱，此内容保密">
                         <textarea id="content" name="content" class="form-control" rows="5" placeholder="扯淡、吐槽，想说啥说啥，评论支持markdown语法哦"></textarea>
                     </div>
                 </form>

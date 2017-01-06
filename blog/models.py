@@ -18,10 +18,12 @@ class Comment(models.Model):
     blog = models.ForeignKey(Blog, on_delete = models.CASCADE)
     nickname = models.TextField(max_length=20)
     comment_time = models.DateTimeField()
+    email = models.CharField(max_length=100)
     content = models.TextField(max_length = 2000)
 
 class SubComment(models.Model):
     comment = models.ForeignKey(Comment, on_delete = models.CASCADE)
     nickname = models.TextField(max_length=20)
     comment_time = models.DateTimeField()
+    email = models.CharField(max_length=100)
     content = models.TextField(max_length=2000)

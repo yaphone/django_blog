@@ -1,3 +1,4 @@
 settings.py
 *.py[cod]
 migrations
+blog/static/markdowns

@@ -110,7 +110,8 @@
         })
         $(function(){ //如果有背景音乐，添加之
             var music = $("#music").html();
-            if($("#music") != "null"){
+            if(music != "null"){
+                $("#music_url").css("display", "inline");    //显示音乐控制框
                 $("#music_url source").attr("src", music);
                 $("#music_url")[0].load();
             }
@@ -132,7 +133,7 @@
             <p class="blog-post-meta" align="center">{{ blog.update_time }}阅读次数:{{ blog.reading_count }}
                 <span id="music" style="display:none">{{blog.music}}</span>
                 <br/>
-                <audio id="music_url" autoplay controls loop><source src="" /></audio>
+                <audio id="music_url" style="display:none" autoplay controls loop><source src="" /></audio>
             </p>
             <hr>
             <p> {{ blog.blog_content | custom_markdown  }} </p>

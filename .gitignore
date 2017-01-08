@@ -1,4 +1,4 @@
-settings.py
+mysite/settings.py
 *.pyc
 migrations
 blog/static/markdowns

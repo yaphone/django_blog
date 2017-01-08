@@ -108,8 +108,11 @@ def markdowns(request):
         blog_list = Blog.objects.order_by('-update_time')
         blog_title_list = [blog.blog_title for blog in blog_list]
         for md_name in md_name_list:
-            if len(md_name.strip()) == 0: #如果标题去除左右空格后长度为零
-                return
+            file_path = os.path.join(BASE_DIR, 'static/markdowns/' + md_name + '.md')
+            blog_dict = parser(file_path)
+            title = blog_dict['title']
+            if len(title.strip()) == 0: #如果标题去除左右空格后长度为零
+                return JsonResponse({'status': 'error'})
             if md_name in blog_title_list:
                 blog = Blog.objects.get(blog_title=md_name)
                 blog_id = blog.id
@@ -119,9 +122,6 @@ def markdowns(request):
                 blog_id = None
                 update_time = timezone.now()
                 reading_count = 1  #默认阅读次数为1
-            file_path = os.path.join(BASE_DIR, 'static/markdowns/' + md_name + '.md')
-            blog_dict = parser(file_path)
-            title = blog_dict['title']
             classify = blog_dict['classify']
             keywords = blog_dict['keywords']
             content = blog_dict['content']
@@ -130,7 +130,7 @@ def markdowns(request):
             blog = Blog(id=blog_id, blog_title=title, blog_content=content, update_time=update_time,
                         modify_time=timezone.now(), blog_tag=keywords, blog_type=classify, reading_count=reading_count, music=music)
             blog.save()
-        return JsonResponse({'status': 'OK'})
+        return JsonResponse({'status': 'success'})
     if request.method == 'GET':
         return render(request, 'blog/markdown.html')
 
@@ -140,6 +140,8 @@ def markdowns(request):
 def get_md_info(request):
     md_path = os.path.join(BASE_DIR, 'static/markdowns')
     md_list = os.listdir(md_path)
+    #按时间先后顺序排列
+    md_list.sort(key=lambda md: os.stat(os.path.join(md_path, md)).st_mtime, reverse=True)
     md_info_dict = {}  # 存储所有的markdown文件名，转为json对象时使用
     md_info_list = []  # 存储md文件信息列表
     for md in md_list:
@@ -158,6 +160,7 @@ def get_md_info(request):
 def delete(request):
     if request.method == "POST":
         blog_titles = request.POST.get('title_list')
+        print blog_titles
         if blog_titles:
             blog_title_list = blog_titles.split(',')
             for title in blog_title_list:

@@ -38,8 +38,11 @@
                 },
                 traditional: true,
                 success: function (data) {
-                    if(data['status'] == 'OK'){
+                    if(data['status'] == 'success'){
                         alert("发布成功");
+                        location.reload();
+                    }else if(data['status'] == 'error'){
+                        alert("发布失败，请检查格式");
                         location.reload();
                     }
                 }

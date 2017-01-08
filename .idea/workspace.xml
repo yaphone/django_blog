@@ -68,8 +68,8 @@
       <file leaf-file-name="markdown.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blog/templates/blog/markdown.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1770">
-              <caret line="59" column="39" lean-forward="false" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="39" />
+            <state relative-caret-position="374">
+              <caret line="39" column="42" lean-forward="true" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -123,8 +123,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blog/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="110" column="58" lean-forward="false" selection-start-line="110" selection-start-column="58" selection-end-line="110" selection-end-column="58" />
+            <state relative-caret-position="497">
+              <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -178,6 +178,7 @@
       <find>music_url</find>
       <find>col</find>
       <find>delete</find>
+      <find>markd</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -197,7 +198,6 @@
         <option value="$PROJECT_DIR$/blog/static/blog/test.html" />
         <option value="$PROJECT_DIR$/blog/templates/blog/upload.html" />
         <option value="$PROJECT_DIR$/blog/templates/blog/delete.html" />
-        <option value="$PROJECT_DIR$/blog/templates/blog/markdown.html" />
         <option value="$PROJECT_DIR$/blog/templates/blog/login.html" />
         <option value="$PROJECT_DIR$/blog/templatetags/custom_markdown.py" />
         <option value="$PROJECT_DIR$/blog/urls.py" />
@@ -209,6 +209,7 @@
         <option value="$PROJECT_DIR$/blog/templates/blog/index.html" />
         <option value="$PROJECT_DIR$/blog/models.py" />
         <option value="$PROJECT_DIR$/blog/templates/blog/detail.html" />
+        <option value="$PROJECT_DIR$/blog/templates/blog/markdown.html" />
         <option value="$PROJECT_DIR$/blog/views.py" />
       </list>
     </option>
@@ -655,7 +656,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1924" height="1056" extended-state="0" />
+    <frame x="-8" y="-8" width="1924" height="1056" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15959702" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -983,14 +984,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blog/templates/blog/markdown.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1770">
-          <caret line="59" column="39" lean-forward="false" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blog/tests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1054,10 +1047,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/blog/templates/blog/markdown.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="39" column="42" lean-forward="true" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/blog/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="110" column="58" lean-forward="false" selection-start-line="110" selection-start-column="58" selection-end-line="110" selection-end-column="58" />
+        <state relative-caret-position="497">
+          <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
           <folding />
         </state>
       </provider>

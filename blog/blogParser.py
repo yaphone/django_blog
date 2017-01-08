@@ -30,7 +30,7 @@ def parser(file_path):
 
     # Content
     content_start = blog.find("------") + 7
-    content_end = blog.find("******")
+    content_end = blog.find("------")
     content = blog[content_start:content_end]
     blog_dict.setdefault("content", content)
 

@@ -108,6 +108,8 @@ def markdowns(request):
         blog_list = Blog.objects.order_by('-update_time')
         blog_title_list = [blog.blog_title for blog in blog_list]
         for md_name in md_name_list:
+            if len(md_name.strip()) == 0: #如果标题去除左右空格后长度为零
+                return
             if md_name in blog_title_list:
                 blog = Blog.objects.get(blog_title=md_name)
                 blog_id = blog.id
@@ -159,8 +161,9 @@ def delete(request):
         if blog_titles:
             blog_title_list = blog_titles.split(',')
             for title in blog_title_list:
-                blog = Blog.objects.get(blog_title=title)
-                blog.delete()
+                blog_list = Blog.objects.filter(blog_title=title)
+                for blog in blog_list:
+                    blog.delete()
             return JsonResponse({'status': 'OK'})
     if request.method == "GET":
         return render(request, 'blog/delete.html')

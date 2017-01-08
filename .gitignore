@@ -2,3 +2,4 @@ mysite/settings.py
 *.pyc
 migrations
 blog/static/markdowns
+settings.py

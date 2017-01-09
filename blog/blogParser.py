@@ -9,19 +9,19 @@ def parser(file_path):
     blog_dict.setdefault('title', title)
 
     # Classify
-    classify_start = title_end + 10
+    classify_start = blog.find("CLASSIFY:") + 9
     classify_end = blog.find("**", classify_start)
     classify = unicode(blog[classify_start: classify_end], 'utf-8')
     blog_dict.setdefault("classify", classify)
 
     # Keywords
-    keywords_start = classify_end + 10
+    keywords_start = blog.find("KEYWORDS:") + 9
     keywords_end = blog.find("**", keywords_start)
     keywords = unicode(blog[keywords_start:keywords_end], 'utf-8')
     blog_dict.setdefault("keywords", keywords)
 
     # Music
-    music_start = blog.find("MUSIC") + 6
+    music_start = blog.find("MUSIC:") + 6
     music_end = blog.find("**", music_start)
     music = "null"
     if music_start > 5:  #如果不存在，blog_start=-1, blog_start+5 = -1

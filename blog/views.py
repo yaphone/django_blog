@@ -110,11 +110,11 @@ def markdowns(request):
         for md_name in md_name_list:
             file_path = os.path.join(BASE_DIR, 'static/markdowns/' + md_name + '.md')
             blog_dict = parser(file_path)
-            title = blog_dict['title']
+            title = blog_dict['title'] #str转为unicode
             if len(title.strip()) == 0: #如果标题去除左右空格后长度为零
                 return JsonResponse({'status': 'error'})
-            if md_name in blog_title_list:
-                blog = Blog.objects.get(blog_title=md_name)
+            if title in blog_title_list:
+                blog = Blog.objects.get(blog_title=title)
                 blog_id = blog.id
                 update_time = blog.update_time
                 reading_count = blog.reading_count
@@ -160,7 +160,6 @@ def get_md_info(request):
 def delete(request):
     if request.method == "POST":
         blog_titles = request.POST.get('title_list')
-        print blog_titles
         if blog_titles:
             blog_title_list = blog_titles.split(',')
             for title in blog_title_list:

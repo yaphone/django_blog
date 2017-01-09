@@ -4,25 +4,25 @@ def parser(file_path):
     blog = open(file_path, 'rU').read()
     # Title
     title_start = blog.find("TITLE:") + 6
-    title_end = blog.find("\n", title_start)
-    title = blog[title_start:title_end]
+    title_end = blog.find("**", title_start)
+    title = unicode(blog[title_start:title_end], 'utf-8')
     blog_dict.setdefault('title', title)
 
     # Classify
     classify_start = title_end + 10
-    classify_end = blog.find("\n", classify_start)
-    classify = blog[classify_start: classify_end]
+    classify_end = blog.find("**", classify_start)
+    classify = unicode(blog[classify_start: classify_end], 'utf-8')
     blog_dict.setdefault("classify", classify)
 
     # Keywords
     keywords_start = classify_end + 10
-    keywords_end = blog.find("\n", keywords_start)
-    keywords = blog[keywords_start:keywords_end]
+    keywords_end = blog.find("**", keywords_start)
+    keywords = unicode(blog[keywords_start:keywords_end], 'utf-8')
     blog_dict.setdefault("keywords", keywords)
 
     # Music
     music_start = blog.find("MUSIC") + 6
-    music_end = blog.find("\n", music_start)
+    music_end = blog.find("**", music_start)
     music = "null"
     if music_start > 5:  #如果不存在，blog_start=-1, blog_start+5 = -1
         music = blog[music_start: music_end]
@@ -30,9 +30,10 @@ def parser(file_path):
 
     # Content
     content_start = blog.find("------") + 7
-    content_end = blog.find("------")
-    content = blog[content_start:content_end]
+    content_end = blog.find("------", content_start)
+    content = unicode(blog[content_start:content_end], 'utf-8')
     blog_dict.setdefault("content", content)
+    print blog_dict
 
     return blog_dict
 

@@ -30,7 +30,7 @@ def parser(file_path):
 
     # Content
     content_start = blog.find("------") + 7
-    content_end = blog.find("------", content_start)
+    content_end = len(blog)
     content = unicode(blog[content_start:content_end], 'utf-8')
     blog_dict.setdefault("content", content)
     print blog_dict

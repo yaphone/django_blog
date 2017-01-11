@@ -1,37 +1,25 @@
-
 {%extends "blog/base.html" %}
 {% load static %}
 {% block head %}
-    <style>
-        li{
-            list-style:None;
-            float:left;
-        }
-        ul{
-            padding:0;
-            margin:0;
-        }
-    </style>
     <script>
         function init() {
             $.getJSON('/blog/get_md_info', function (data) {
                 //alert(data);
                 for(var i in data['md']){
                     var info = data['md'][i]
-                    $("#md_list").append("<li> <img src={% static 'blog/icon/md_icon.ico' %}>" +
-                    "<ul> <li> <input type='checkbox' value=" + info['mdName'] + "> </li>" + info['mdName'] + "</ul> </li>")
+                    $("#md_list").append("<tr> <td align='center'><input type='checkbox' value=" + info['mdName'] +
+                        "></td> <td>" + info['mdName'] + "</td></tr>")
                 }
 
             });
         }
-        //var md_name_list = []
         function push_md_name_list() {
             var md_name_list = [];
             $("input[type='checkbox']:checked").each(function () {
                 md_name_list.push($(this).val());
             });
             $.ajax({
-                url: "/blog/markdowns",
+                url: "/blog/publish",
                 type: "POST",
                 data: {
                     'md_name_list': md_name_list.join(',')
@@ -48,21 +36,24 @@
                 }
             })
         }
-
     </script>
+
 {% endblock %}
+
 
 {% block content %}
     <div>
-        <ul id="md_list">
-        </ul>
-        </div>
+        <h1 align="center"> 发布新博客 </h1>
+        <hr>
+        <table id="md_list" class="table table-bordered">
+            <tr class="success">
+                <td></td>
+                <td align="center">标题</td>
+            </tr>
+        </table>
     </div>
     <hr>
 
     <button class="btn-lg btn-success col-lg-12" id="pushMarkdown" onclick="push_md_name_list()">确定</button>
 
 {% endblock %}
-
-
-

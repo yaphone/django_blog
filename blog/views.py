@@ -101,7 +101,7 @@ def detail(request):
 #新建、更新博客
 @csrf_exempt
 @login_required
-def markdowns(request):
+def publish(request):
     if request.method == 'POST':
         md_name_list_str = request.POST.get('md_name_list')
         md_name_list = md_name_list_str.split(',')
@@ -126,13 +126,13 @@ def markdowns(request):
             keywords = blog_dict['keywords']
             content = blog_dict['content']
             music = blog_dict['music']
-            print music
             blog = Blog(id=blog_id, blog_title=title, blog_content=content, update_time=update_time,
                         modify_time=timezone.now(), blog_tag=keywords, blog_type=classify, reading_count=reading_count, music=music)
             blog.save()
         return JsonResponse({'status': 'success'})
     if request.method == 'GET':
-        return render(request, 'blog/markdown.html')
+        #return render(request, 'blog/markdown.html')
+        return render(request, 'blog/publish.html')
 
 #返回所有的md文件名
 @csrf_exempt
@@ -174,11 +174,11 @@ def delete(request):
 @login_required
 def get_all_title_info(request):
     blog_list = Blog.objects.order_by('-update_time')
-    blog_title_list = [blog.blog_title for blog in blog_list]
+    #blog_title_list = [blog.blog_title for blog in blog_list]
     title_dict = {}
     title_info_list = []
-    for blog_title in blog_title_list:
-        title_info = {'title': blog_title}
+    for blog in blog_list:
+        title_info = {'title': blog.blog_title, 'update_time': blog.update_time, 'modify_time': blog.modify_time}
         title_info_list.append(title_info)
     title_dict.setdefault('blog_titles', title_info_list)
     return JsonResponse(title_dict, safe=False)

@@ -15,11 +15,14 @@
     <script>
         function init() {
             $.getJSON('/blog/get_all_title_info', function (data) {
-                //alert(data);
                 for(var i in data['blog_titles']){
                     var info = data['blog_titles'][i]
-                    $("#title_list").append("<li> <img src={% static 'blog/icon/delete_icon.ico' %}>" +
-                    "<ul> <li> <input type='checkbox' value=" + info['title'] + "> </li>" + info['title'] + "</ul> </li>")
+                    $("#title_list").append("<tr>" +
+                        "<td align='center'><input type='checkbox' value=" + info['title'] + "></td>" +
+                        "<td>" + info['title'] + "</td>" +
+                        "<td>" + info['update_time'] + "</td>" +
+                        "<td>" + info['modify_time'] + "</td>" +
+                        "</tr>")
                 }
 
             });
@@ -51,15 +54,21 @@
 
 {% block content %}
     <div>
-        <ul id="title_list">
-        </ul>
-        </div>
+        <h1 align="center"> 删除博客 </h1>
+        <hr>
+        <table id="title_list" class="table table-bordered">
+            <tr class="success">
+                <td></td>
+                <td align="center">标题</td>
+                <td align="center">发布时间</td>
+                <td align="center">最后更新</td>
+            </tr>
+        </table>
     </div>
+    <hr>
+
     <hr>
 
     <button class="btn-lg btn-danger col-lg-12" id="pushMarkdown" onclick="push_md_name_list()">确定</button>
 
 {% endblock %}
-
-
-

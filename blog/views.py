@@ -178,7 +178,7 @@ def get_all_title_info(request):
     title_dict = {}
     title_info_list = []
     for blog in blog_list:
-        title_info = {'title': blog.blog_title, 'update_time': blog.update_time, 'modify_time': blog.modify_time}
+        title_info = {'title': blog.blog_title}
         title_info_list.append(title_info)
     title_dict.setdefault('blog_titles', title_info_list)
     return JsonResponse(title_dict, safe=False)

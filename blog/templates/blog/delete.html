@@ -21,8 +21,8 @@
                     $("#title_list").append("<tr>" +
                         "<td align='center'><input type='checkbox' value=" + info['title'] + "></td>" +
                         "<td align='center'>" + info['title'] + "</td>" +
-                        "<td align='center'>" + info['update_time'].replace('Z', ' ').replace('T', ' ').slice(0, -5) + "</td>" + //RFC3339转为正常日期格式
-                        "<td align='center'>" + info['modify_time'].replace('Z', ' ').replace('T', ' ').slice(0, -5) + "</td>" +
+                        "<td align='center'>" + info['update_time'].replace('Z', ' ').replace('T', ' ') + "</td>" + //RFC3339转为正常日期格式
+                        "<td align='center'>" + info['modify_time'].replace('Z', ' ').replace('T', ' ') + "</td>" +
                         "</tr>")
                 }
 

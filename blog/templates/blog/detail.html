@@ -130,7 +130,7 @@
 {% if blog %}
         <div class="blog-post">
             <h2 class="blog-post-title" align="center">{{ blog.blog_title}}</h2>
-            <p class="blog-post-meta" align="center">{{ blog.update_time }}阅读次数:{{ blog.reading_count }}
+            <p class="blog-post-meta" align="center">{{ blog.update_time | date:'Y-m-d H:i:s' }}阅读次数:{{ blog.reading_count }}
                 <span id="music" style="display:none">{{blog.music}}</span>
                 <br/>
                 <audio id="music_url" style="display:none" autoplay controls loop><source src="" /></audio>

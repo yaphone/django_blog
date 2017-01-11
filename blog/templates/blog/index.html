@@ -47,7 +47,7 @@
 	{% for blog in blog_list%}
 		<div class="blog-post">
 		    <h2 class="blog-post-title" align="center">{{ blog.blog_title}}</h2>
-            <p class="blog-post-meta" align="center">{{ blog.update_time }} <a href="/blog/detail?title={{blog.blog_title}}">Read more</a></p>
+            <p class="blog-post-meta" align="center">{{ blog.update_time | date:'Y-m-d H:i:s' }} <a href="/blog/detail?title={{blog.blog_title}}">Read more</a></p>
             <p> {{ blog.blog_content | slice:"100" | custom_markdown}} </p>
             <hr>
         </div><!-- /.blog-post -->

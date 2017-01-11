@@ -16,12 +16,13 @@
         function init() {
             $.getJSON('/blog/get_all_title_info', function (data) {
                 for(var i in data['blog_titles']){
-                    var info = data['blog_titles'][i]
+                    var info = data['blog_titles'][i];
+                    //alert(info['update_time'].strftime('%Y-%m-%dT%H:%M:%S'));
                     $("#title_list").append("<tr>" +
                         "<td align='center'><input type='checkbox' value=" + info['title'] + "></td>" +
-                        "<td>" + info['title'] + "</td>" +
-                        "<td>" + info['update_time'] + "</td>" +
-                        "<td>" + info['modify_time'] + "</td>" +
+                        "<td align='center'>" + info['title'] + "</td>" +
+                        "<td align='center'>" + info['update_time'].replace('Z', ' ').replace('T', ' ').slice(0, -5) + "</td>" + //RFC3339转为正常日期格式
+                        "<td align='center'>" + info['modify_time'].replace('Z', ' ').replace('T', ' ').slice(0, -5) + "</td>" +
                         "</tr>")
                 }
 

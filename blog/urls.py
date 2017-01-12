@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^comment$', views.comment, name='comment'),
     url(r'^search_blog', views.search_blog, name='search_blog'),
     url(r'^sub_comment', views.sub_comment, name='sub_comment'),
+    url(r'^about', views.about, name="about")
 
 ]

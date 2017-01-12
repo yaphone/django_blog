@@ -224,6 +224,9 @@ def sub_comment(request): #二级评论
     comment.save()
     return JsonResponse({'status': 'OK'})
 
+def about(request):  #关于我页面
+    return render(request, 'blog/about.html')
+
 
 
 

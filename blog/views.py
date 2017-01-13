@@ -29,13 +29,14 @@ def index(request):
     show_start = page_no * blog_show_num
     show_end = show_start + 5
     all_blog_list = Blog.objects.order_by('-update_time')
+    latest_blog_list = Blog.objects.order_by('-modify_time')
     sum_blog = len(all_blog_list) #博文总数，分页使用
     is_last_page = 'false' #判断当前是否是最后一页
     # 最近十篇文章
     if sum_blog >= 10:
-        latest_blog_title_list = [blog.blog_title for blog in all_blog_list[:10]]
+        latest_blog_title_list = [blog.blog_title for blog in latest_blog_list[:10]]
     else:
-        latest_blog_title_list = [blog.blog_title for blog in all_blog_list[:sum_blog]]
+        latest_blog_title_list = [blog.blog_title for blog in latest_blog_list[:sum_blog]]
     # 归档分类
     classify_list = [blog.blog_type for blog in all_blog_list]
     classify_dict = dict(Counter(classify_list))
@@ -226,6 +227,11 @@ def sub_comment(request): #二级评论
 
 def about(request):  #关于我页面
     return render(request, 'blog/about.html')
+
+def archive(request): #归档
+    blog_list = Blog.objects.order_by('-update_time')
+    context = {'blog_list': blog_list}
+    return render(request, 'blog/archive.html', context)
 
 
 

@@ -88,7 +88,7 @@
     <div class="sidebar-module">
         <ol class="list-unstyled">
             {% if latest_blog_title_list %}
-            <h4>最近发布</h4>
+            <h4>最近更新</h4>
                 {% for blog_title in latest_blog_title_list %}
                     <li><a href="/blog/detail?title={{blog_title}}">{{blog_title}}</a></li>
                 {% endfor %}
@@ -99,7 +99,7 @@
     <div class="sidebar-module">
         <ol class="list-unstyled">
             {% if classify_dict %}
-                <h4>归档分类</h4>
+                <h4>分类</h4>
                 {% for key,value in classify_dict.items %}
                     <li><a href="/blog/index?classify={{key}}">{{key}}({{value}})</a></li>
                 {% endfor %}

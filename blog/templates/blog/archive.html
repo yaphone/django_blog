@@ -1,0 +1,25 @@
+{%extends "blog/base.html" %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+    <h1 align="center">归档</h1>
+    <hr>
+    {% if blog_list %}
+    <table class="table table-bordered">
+        <tr class="success">
+            <td align="center">标题</td>
+            <td align="center">发表时间</td>
+            <td align="center">更新时间</td>
+        </tr>
+        {% for blog in blog_list %}
+        <tr>
+            <td align="center"><a href="/blog/detail?title={{blog.blog_title}}">{{ blog.blog_title }}</a></td>
+            <td align="center">{{ blog.update_time | date:'Y-m-d H:i:s' }}</td>
+            <td align="center">{{ blog.modify_time | date:'Y-m-d H:i:s' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+{% endblock %}

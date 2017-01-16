@@ -233,6 +233,10 @@ def archive(request): #归档
     context = {'blog_list': blog_list}
     return render(request, 'blog/archive.html', context)
 
+@login_required
+def myadmin(request):
+    return render(request, 'blog/myadmin.html')
+
 
 
 

@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^search_blog', views.search_blog, name='search_blog'),
     url(r'^sub_comment', views.sub_comment, name='sub_comment'),
     url(r'^about', views.about, name="about"),
-    url(r'^archive', views.archive, name="archive$"),
+    url(r'^archive', views.archive, name="archive"),
+    url(r'^myadmin', views.myadmin, name="myadmin"),
 
 ]

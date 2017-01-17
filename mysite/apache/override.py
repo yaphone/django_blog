@@ -1,4 +1,4 @@
 from mysite.settings import *
 
-DEBUG = True
-ALLOWED_HOSTS = ['www.mydomain.com', 'mydomain.com']
+DEBUG = False
+ALLOWED_HOSTS = ['www.zhouayfeng.cn', 'zhouyafeng.cn']

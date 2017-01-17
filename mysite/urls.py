@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('^', include('django.contrib.auth.urls')),
     url(r'accounts/login', login),
+    url(r'^wechat/', include('wechat.urls')),
 ]

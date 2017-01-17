@@ -18,7 +18,7 @@ def verification(request):
         signature = request.GET.get('signature')
         timestamp = request.GET.get('timestamp')
         nonce = request.GET.get('nonce')
-        echostr = request.GET.get('nonce')
+        echostr = request.GET.get('echostr')
         # 自己的token
         token = "yaphone"  # 这里改写你在微信公众平台里输入的token
         # 字典序排序
@@ -32,5 +32,6 @@ def verification(request):
 
         # 如果是来自微信的请求，则回复echostr
         if hashcode == signature:
-            return HttpResponse(echostr)
-        #return HttpResponse("HelloWorld")
+            print "OK"
+            return HttpResponse(echostr, content_type="text/plain")
+        

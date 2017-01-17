@@ -11,10 +11,30 @@
     <script src="{% static 'blog/js/zh.js' type='text/javascript' %}" > </script>
 {% endblock %}
 {% block content %}
-    <label class="control-label">请选择markdown文件进行上传（确保后缀为.md）</label>
-    <form method="post" enctype="multipart/form-data" role="form" action="/blog/upload">
-        <input id="input" name="md" type="file" class="file" data-show-caption="true">
+    <h1 align="center">上传新博客</h1>
+    <hr>
+    <p>
+        <br>
+    </p>
+    <p>
+        <label class="control-label">请选择markdown文件进行上传（确保后缀为.md）</label>
+        <form method="post" enctype="multipart/form-data" role="form" action="/blog/upload">
+            <input id="input" name="md" type="file" class="file" data-show-caption="true">
+            <hr>
+            <input type="submit" value="上传" class="btn-success btn-lg col-lg-12">
+        </form>
+    </p>
+    <p>
         <hr>
-        <input type="submit" value="提交" class="btn-success btn-sm col-lg-12">
-    </form>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </p>
 {% endblock %}

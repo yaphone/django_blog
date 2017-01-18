@@ -2,17 +2,20 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import JsonResponse
 import hashlib
+import sign
 import time
 import os
 import urllib2,json
 import json
 
+
 # Create your views here.
 
 def index(request):
     #return HttpResponse("Hello, world. You're at the polls index.")
-    return render(request, 'wechat/test.html')
+    return render(request, 'wechat/index.html')
 
 def verification(request):
     if request.method == 'GET':
@@ -38,4 +41,12 @@ def verification(request):
 
 def wechatjs(request): #微信JS验证文件
     return render(request, 'wechat/MP_verify_w1ExVKCAt7pVaCbt.txt')
+
+def my_sign(request): #生成签名随机串
+    jsapi_ticket = 'i4uBV1H2c5EjEWssSV-zt-zsE00n9fn8ZpSNnvpRVFlZR9iPmP_O6C5M2oTI0n2CtLGS0EeNEXEhGJfq-xUsc_bKQSgwZclay5-lg3CZ_eI5BApNMxXWTiWNqMxZkMuZBOMfAIAOBZ'
+    pre_url = "zhouyafeng.cn"
+    url = pre_url + request.path
+    S = sign.Sign(jsapi_ticket, url)
+    ret = S.sign()
+    return JsonResponse(ret)
         

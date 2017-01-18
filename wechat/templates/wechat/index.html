@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type='text/javascript'></script>
+    <script src="http://ojzhmzvhf.bkt.clouddn.com/jquery.js"></script>
+    <script>
+        $(function(){
+            $.get("sign", function(data){
+                //alert(data["nonceStr"]);
+                var appId = 'wxd2a9d9dbc0333a47';
+                var nonceStr = data["nonceStr"];
+                var timestamp = data["timestamp"];
+                var signature = data["signature"];
+                //alert(nonceStr + "  " + timestamp + "  " + signature );
+
+                wx.config({
+                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: appId, // 必填，公众号的唯一标识
+                timestamp: timestamp, // 必填，生成签名的时间戳
+                nonceStr: signature, // 必填，生成签名的随机串
+                signature: signature,// 必填，签名，见附录1
+                jsApiList: ['getLocation',] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                });
+            });
+            /*wx.config({
+                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: 'wxd2a9d9dbc0333a47', // 必填，公众号的唯一标识
+                timestamp: , // 必填，生成签名的时间戳
+                nonceStr: '', // 必填，生成签名的随机串
+                signature: '',// 必填，签名，见附录1
+                jsApiList: ['getLocation', ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            });*/
+        })
+
+        function test(){
+            wx.ready(function(){
+                //alert("OK");
+                var latitude = 0;
+                var longitude = 0;
+                var speed = 0;
+                var accuracy = 0;
+                wx.getLocation({
+                    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                    success: function (res) {
+                        latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                        longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                        speed = res.speed; // 速度，以米/每秒计
+                        accuracy = res.accuracy; // 位置精度
+                    }
+                });
+                alert(latitude);
+            });
+        }
+
+    </script>
+    <title>微信定位涛哥特供版</title>
+</head>
+<body>
+<h1>Hello World!</h1>
+<button onclick="test()">测试</button>
+</body>
+</html>

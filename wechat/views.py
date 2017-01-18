@@ -11,7 +11,8 @@ import json
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    #return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, 'wechat/test.html')
 
 def verification(request):
     if request.method == 'GET':
@@ -34,4 +35,7 @@ def verification(request):
         if hashcode == signature:
             print "OK"
             return HttpResponse(echostr, content_type="text/plain")
+
+def wechatjs(request): #微信JS验证文件
+    return render(request, 'wechat/MP_verify_w1ExVKCAt7pVaCbt.txt')
         

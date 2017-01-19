@@ -21,9 +21,6 @@
                 jsApiList: ['getLocation',] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
                 });
             });
-        })
-
-        function test(){
             wx.ready(function(){
                 var latitude = 0;
                 var longitude = 0;
@@ -36,10 +33,35 @@
                         longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
                         speed = res.speed; // 速度，以米/每秒计
                         accuracy = res.accuracy; // 位置精度
+                        //alert(latitude);
+                        $.get("save_location?latitude=" + latitude + "&longitude=" + longitude,
+                            function(data){});
                     }
                 });
-                alert(latitude);
             });
+        })
+
+        function test(){
+            /*wx.ready(function(){
+                var latitude = 0;
+                var longitude = 0;
+                var speed = 0;
+                var accuracy = 0;
+                $.get("save_location?latitude=" + latitude + "&longitude=" + longitude,
+                            function(data){alert(data)});
+                wx.getLocation({
+                    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                    success: function (res) {
+                        latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                        longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                        speed = res.speed; // 速度，以米/每秒计
+                        accuracy = res.accuracy; // 位置精度
+                        //alert(latitude);
+                        $.get("save_location?latitude=" + latitude + "&longitude=" + longitude,
+                            function(data){alert(data)});
+                    }
+                });
+            });*/
         }
 
     </script>

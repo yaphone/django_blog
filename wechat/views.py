@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 import hashlib
 import sign
+from django.utils import timezone
+from.models import Location
 import time
 import os
 import urllib2,json
@@ -48,6 +50,14 @@ def my_sign(request): #生成签名随机串
     url = "http://zhouyafeng.cn/wechat/"
     S = sign.Sign(jsapi_ticket, url)
     ret = S.sign()
-    print ret
     return JsonResponse(ret)
+
+def save_location(request):
+    if request.method == "GET":
+        latitude = request.GET.get('latitude') #纬度
+        longitude = request.GET.get('longitude') #经度
+        time = timezone.now()
+        location = Location(latitude=latitude, longitude=longitude, time=time)
+        location.save()
+        return JsonResponse({"status": "OK"})
         

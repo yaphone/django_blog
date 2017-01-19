@@ -43,9 +43,10 @@ def wechatjs(request): #微信JS验证文件
     return render(request, 'wechat/MP_verify_w1ExVKCAt7pVaCbt.txt')
 
 def my_sign(request): #生成签名随机串
-    jsapi_ticket = 'wwstf0N4KuxU6mCpUCziVfpomsgdMmtWuck2AGWXFXjOzKfMrwYsiDumrYmQZJOxjeisOPpmATidd2yoEthCGHHtA69Ywg7WN7GEXdOYXXBTZOA8cYbfyc16Djk0V8P2EBDgAIAVSU'
+    jsapi_ticket = 'kgt8ON7yVITDhtdwci0qeTWQwsqkmCCxl3Cird9AlCRs-cuzQpahA3T-srqrnXAP2zuxETCtM-um_xIiylWedg'
+
     #pre_url = "zhouyafeng.cn/wechat"
-    url = "http://zhouyafeng.cn/wechat"
+    url = "http://zhouyafeng.cn/wechat/"
     S = sign.Sign(jsapi_ticket, url)
     ret = S.sign()
     print ret

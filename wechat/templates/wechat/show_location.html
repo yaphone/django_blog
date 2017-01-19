@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="http://ojzhmzvhf.bkt.clouddn.com/jquery.js"></script>
+    <link rel="http://ok1b0smdq.bkt.clouddn.com/bootstrap.css" type="text/css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h2 align="center">微信定位系统中国有我一定黄特供版</h2>
+    {% if locations %}
+        {% for location in locations %}
+            <a href="/wechat/show_map?id={{ location.id }}">{{location.time | date:'Y-m-d H:i:s' }}</a>
+        {% endfor %}
+    {% endif %}
+</div>
+
+</body>
+</html>

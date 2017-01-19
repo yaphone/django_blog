@@ -210,8 +210,6 @@ def search_blog(request):
     search_word = request.GET.get("search_word")
     sql = "SELECT * FROM blog_blog WHERE blog_content LIKE '%%" + search_word + "%%' or blog_title LIKE '%%" + search_word + "%%'"
     blog_list = Blog.objects.raw(sql)
-    for blog in blog_list:
-        print blog.blog_title
     context = {'blog_list': blog_list}
     return render(request, 'blog/index.html', context)
 

@@ -11,5 +11,7 @@ urlpatterns = [
     url(r'^save_location$', views.save_location, name="save_location"),
     url(r'^show_location$', views.show_location, name="show_location"),
     url(r'^show_map$', views.show_map, name="show_map"),
+    url(r'^get_specific_location$', views.get_specific_location, name="get_specific_location"),
+
 
 ]

@@ -45,7 +45,7 @@ def wechatjs(request): #微信JS验证文件
     return render(request, 'wechat/MP_verify_w1ExVKCAt7pVaCbt.txt')
 
 def my_sign(request): #生成签名随机串
-    jsapi_ticket = 'kgt8ON7yVITDhtdwci0qeTWQwsqkmCCxl3Cird9AlCRmtrhZBZHyDl7X_IhVYAchSqwhe5yDWtPUTx7oJpJ0WQ'
+    jsapi_ticket = 'kgt8ON7yVITDhtdwci0qeTWQwsqkmCCxl3Cird9AlCTQ5IBDPu8Jq9s2H41Q8ocneWBJ3OsiuQy6_YNekKh-HQ'
     #pre_url = "zhouyafeng.cn/wechat"
     url = "http://zhouyafeng.cn/wechat/"
     S = sign.Sign(jsapi_ticket, url)
@@ -71,6 +71,12 @@ def show_location(request):
 
 def show_map(request):
     id = request.GET.get("id")
-    location = Location.objects.get(id=id)
-    context = {"location": location}
+    context = {"id": id}
     return render(request, 'wechat/show_map.html', context)
+
+def get_specific_location(request):
+    id = request.GET.get("id")
+    location = Location.objects.get(id=id)
+    latitude = location.latitude
+    longitude = location.longitude
+    return JsonResponse({"longitude": longitude, "latitude": latitude})

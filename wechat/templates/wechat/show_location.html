@@ -9,11 +9,20 @@
 <body>
 <div class="container">
     <h2 align="center">微信定位系统中国有我一定黄特供版</h2>
-    {% if locations %}
-        {% for location in locations %}
-            <a href="/wechat/show_map?id={{ location.id }}">{{location.time | date:'Y-m-d H:i:s' }}</a>
-        {% endfor %}
-    {% endif %}
+    <table id="title_list" class="table table-bordered">
+            <tr class="danger">
+                <td align="center">记录时间</td>
+            </tr>
+        {% if locations %}
+            {% for location in locations %}
+                <tr>
+                    <td align="center">
+                        <a href="/wechat/show_map?id={{ location.id }}">{{location.time | date:'Y-m-d H:i:s' }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </table>
 </div>
 
 </body>

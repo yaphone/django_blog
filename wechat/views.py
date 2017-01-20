@@ -63,8 +63,7 @@ def save_location(request):
 
 def show_location(request):
     if request.method == "GET":
-        sql = "SELECT * FROM wechat_location"
-        locations = Location.objects.raw(sql)
+        locations = Location.objects.order_by('-time')
         context = {'locations': locations}
         return render(request, 'wechat/show_location.html', context)
     return render(request, 'wechat/show_location.html')

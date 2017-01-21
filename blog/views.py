@@ -240,7 +240,7 @@ def documents(request):
     filename = request.GET.get('title')
     if filename:
         #file_path = os.path.join(os.getcwd(), "blog", "static", "markdowns", filename + ".md") #开发环境
-        file_path = os.path.join("./blog" , "static" , "markdowns",  filename + ".md") #apache环境
+        file_path = os.path.join("/home/github/django_blog/blog" , "static" , "markdowns",  filename + ".md") #apache环境
         file = open(file_path).read()
         response = StreamingHttpResponse(file)
         response['Content-Type'] = 'application/octet-stream'

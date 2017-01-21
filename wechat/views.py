@@ -6,7 +6,7 @@ from django.http import JsonResponse
 import hashlib
 import sign
 from django.utils import timezone
-from.models import Location
+from .models import Location
 import time
 import os
 import urllib2,json
@@ -44,9 +44,10 @@ def verification(request):
 def wechatjs(request): #微信JS验证文件
     return render(request, 'wechat/MP_verify_w1ExVKCAt7pVaCbt.txt')
 
-def my_sign(request): #生成签名随机串
-    jsapi_ticket = 'kgt8ON7yVITDhtdwci0qeTWQwsqkmCCxl3Cird9AlCT5uvbeLnCEawfiV9IBANNlE6pgrZEIqEVWR3O69OEGhQ'
-    #pre_url = "zhouyafeng.cn/wechat"
+def my_sign(): #生成签名随机串
+    file = open("./util/ticket.txt")
+    jsapi_ticket = file.read()
+    #jsapi_ticket = 'kgt8ON7yVITDhtdwci0qeTWQwsqkmCCxl3Cird9AlCT5uvbeLnCEawfiV9IBANNlE6pgrZEIqEVWR3O69OEGhQ'
     url = "http://zhouyafeng.cn/wechat/"
     S = sign.Sign(jsapi_ticket, url)
     ret = S.sign()
@@ -79,3 +80,4 @@ def get_specific_location(request):
     latitude = location.latitude
     longitude = location.longitude
     return JsonResponse({"longitude": longitude, "latitude": latitude})
+

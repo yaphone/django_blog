@@ -1,0 +1,46 @@
+{%extends "blog/base.html" %}
+{% load static %}
+{% block head %}
+    <script>
+        function init() {
+            $.getJSON('/blog/get_md_info', function (data) {
+                //alert(data);
+                for(var i in data['md']){
+                    var info = data['md'][i]
+                    $("#md_list").append("<tr> <td align='center'> <a href='/blog/documents?title=" + info['mdName'] + "'>" + info['mdName'] + "</a></td></tr>");
+                }
+
+            });
+        }
+    </script>
+
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        <h1 align="center"> 下载原文件 </h1>
+        <hr>
+        <table id="md_list" class="table table-bordered">
+            <tr class="success">
+                <td align="center">标题</td>
+                <a href='/blog/documents?title='></a>
+            </tr>
+        </table>
+    </div>
+    <hr>
+
+    <p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </p>
+
+{% endblock %}

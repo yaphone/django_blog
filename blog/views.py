@@ -2,7 +2,7 @@
 
 from django.shortcuts import render
 from django.shortcuts import HttpResponse, HttpResponseRedirect
-from django.http import JsonResponse
+from django.http import JsonResponse, StreamingHttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate, login, logout
@@ -234,6 +234,19 @@ def archive(request): #归档
 @login_required
 def myadmin(request):
     return render(request, 'blog/myadmin.html')
+
+@login_required
+def documents(request):
+    filename = request.GET.get('title')
+    if filename:
+        file_path = os.path.join(os.getcwd(), "blog" , "static" , "markdowns",  filename + ".md")
+        file = open(file_path).read()
+        response = StreamingHttpResponse(file)
+        response['Content-Type'] = 'application/octet-stream'
+        response['Content-Disposition'] = 'attachment;filename="{0}"'.format(filename.encode('utf-8') + ".md")
+        return response
+    else:
+        return render(request, "blog/documents.html")
 
 
 

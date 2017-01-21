@@ -19,5 +19,6 @@ urlpatterns = [
     url(r'^about', views.about, name="about"),
     url(r'^archive', views.archive, name="archive"),
     url(r'^myadmin', views.myadmin, name="myadmin"),
+    url(r'^documents', views.documents, name="documents"),
 
 ]

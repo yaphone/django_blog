@@ -44,11 +44,11 @@ def verification(request):
 def wechatjs(request): #微信JS验证文件
     return render(request, 'wechat/MP_verify_w1ExVKCAt7pVaCbt.txt')
 
-def my_sign(): #生成签名随机串
+def my_sign(request): #生成签名随机串
     file = open("/home/github/django_blog/wechat/util/ticket.txt")
-    jsapi_ticket = file.read()
+    jsapi_ticket = file.read()[:-1]  #.read()方法会在字符串后加一个换行符，这里去掉
     #jsapi_ticket = 'kgt8ON7yVITDhtdwci0qeTWQwsqkmCCxl3Cird9AlCT5uvbeLnCEawfiV9IBANNlE6pgrZEIqEVWR3O69OEGhQ'
-    url = "http://zhouyafeng.cn/wechat/"
+    url = "http://zhouyafeng.cn/wechat/"  
     S = sign.Sign(jsapi_ticket, url)
     ret = S.sign()
     return JsonResponse(ret)

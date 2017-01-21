@@ -16,6 +16,7 @@ def get_ticket():
     tiket_str = urllib.urlopen(ticket_url)
     tiket_dict = json.load(tiket_str)
     ticket = tiket_dict["ticket"]
+    print ticket
     return ticket
 
 

@@ -45,7 +45,7 @@ def wechatjs(request): #微信JS验证文件
     return render(request, 'wechat/MP_verify_w1ExVKCAt7pVaCbt.txt')
 
 def my_sign(): #生成签名随机串
-    file = open("./util/ticket.txt")
+    file = open("/home/github/django_blog/wechat/util/ticket.txt")
     jsapi_ticket = file.read()
     #jsapi_ticket = 'kgt8ON7yVITDhtdwci0qeTWQwsqkmCCxl3Cird9AlCT5uvbeLnCEawfiV9IBANNlE6pgrZEIqEVWR3O69OEGhQ'
     url = "http://zhouyafeng.cn/wechat/"

@@ -17,7 +17,7 @@ def get_ticket():
     tiket_dict = json.load(tiket_str)
     ticket = tiket_dict["ticket"]
     #print ticket
-    file = open("./ticket.txt", 'wb+')
+    file = open("/home/github/django_blog/wechat/util/ticket.txt", 'wb+')
     file.write(ticket)
     file.close()
 

@@ -11,13 +11,19 @@
     <h2 align="center">微信定位系统中国有我一定黄特供版</h2>
     <table id="title_list" class="table table-bordered">
             <tr class="danger">
+                <td align="center">用户名</td>
                 <td align="center">记录时间</td>
+                <td align="center">用户ip</td>
             </tr>
         {% if locations %}
             {% for location in locations %}
                 <tr>
+                    <td align="center">NULL</td>
                     <td align="center">
                         <a href="/wechat/show_map?id={{ location.id }}">{{location.time | date:'Y-m-d H:i:s' }}</a>
+                    </td>
+                    <td align="center">
+                        {{location.ip }}
                     </td>
                 </tr>
             {% endfor %}

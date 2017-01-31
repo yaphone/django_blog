@@ -41,7 +41,7 @@ def index(request):
     classify_list = [blog.blog_type for blog in all_blog_list]
     classify_dict = dict(Counter(classify_list))
 
-    if blog_show_num * (page_no + 1) >= sum_blog:  #判断是否在最后一页
+    if blog_show_num * (page_no + 1) >= sum_blog:  #判断是否在最后一页,如果
         is_last_page = 'true'
     blog_list = all_blog_list[show_start:show_end]
     #搜索功能

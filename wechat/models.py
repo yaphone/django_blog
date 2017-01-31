@@ -10,3 +10,4 @@ class Location(models.Model):
     latitude = models.CharField(max_length=100)  # 纬度
     longitude = models.CharField(max_length=100)  # 经度
     time = models.DateTimeField() #时间
+    ip = models.CharField(max_length = 100)

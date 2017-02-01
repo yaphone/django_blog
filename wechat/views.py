@@ -17,7 +17,7 @@ from django.contrib.auth import authenticate, login, logout
 
 
 # Create your views here.
-def index(request):
+def index(request):#主页
     #return HttpResponse("Hello, world. You're at the polls index.")
     return render(request, 'wechat/index.html')
 

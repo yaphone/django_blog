@@ -34,9 +34,9 @@ def index(request):
     is_last_page = 'false' #判断当前是否是最后一页
     # 最近十篇文章
     if sum_blog >= 10:
-        latest_blog_title_list = [blog.blog_title for blog in latest_blog_list[:10]]
+        latest_blog_list = latest_blog_list[:10]
     else:
-        latest_blog_title_list = [blog.blog_title for blog in latest_blog_list[:sum_blog]]
+        latest_blog_list = latest_blog_list[:sum_blog]
     # 归档分类
     classify_list = [blog.blog_type for blog in all_blog_list]
     classify_dict = dict(Counter(classify_list))
@@ -60,7 +60,7 @@ def index(request):
         context = {'blog_list': blog_list, 'page': 'false'}
         return render(request, 'blog/index.html', context)
 
-    context = {'blog_list': blog_list, 'page_no': page_no, 'is_last_page': is_last_page, 'latest_blog_title_list': latest_blog_title_list,
+    context = {'blog_list': blog_list, 'page_no': page_no, 'is_last_page': is_last_page, 'latest_blog_list': latest_blog_list,
                'classify_dict': classify_dict, 'page':'true'}
     return render(request, 'blog/index.html', context)
 
@@ -85,8 +85,10 @@ def auth(request):
 
     
 def detail(request):
-    title = request.GET.get("title")
-    blog = Blog.objects.get(blog_title = title)  #get方法返回单个blog
+    #title = request.GET.get("title")
+    #blog = Blog.objects.get(blog_title = title)  #get方法返回单个blog
+    id = request.GET.get("id")
+    blog = Blog.objects.get(id = id)
     #每次查询阅读次数加1
     Blog(id=blog.id, blog_title=blog.blog_title, blog_content=blog.blog_content, update_time=blog.update_time,
             modify_time=blog.modify_time, blog_tag=blog.blog_tag, blog_type=blog.blog_type, music = blog.music,

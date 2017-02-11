@@ -47,7 +47,7 @@
 	{% for blog in blog_list%}
 		<div class="blog-post">
 		    <h2 class="blog-post-title" align="center">{{ blog.blog_title}}</h2>
-            <p class="blog-post-meta" align="center">{{ blog.update_time | date:'Y-m-d H:i:s' }} <a href="/blog/detail?title={{blog.blog_title}}">Read more</a></p>
+            <p class="blog-post-meta" align="center">{{ blog.update_time | date:'Y-m-d H:i:s' }} <a href="/blog/detail?id={{blog.id}}">Read more</a></p>
             <p> {{ blog.blog_content | slice:"100" | custom_markdown}} </p>
             <hr>
         </div><!-- /.blog-post -->
@@ -87,10 +87,10 @@
     <hr>
     <div class="sidebar-module">
         <ol class="list-unstyled">
-            {% if latest_blog_title_list %}
+            {% if latest_blog_list %}
             <h4>最近更新</h4>
-                {% for blog_title in latest_blog_title_list %}
-                    <li><a href="/blog/detail?title={{blog_title}}">{{blog_title}}</a></li>
+                {% for blog in latest_blog_list %}
+                    <li><a href="/blog/detail?id={{blog.id}}">{{blog.blog_title}}</a></li>
                 {% endfor %}
             {% endif %}
         </ol>

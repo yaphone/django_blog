@@ -15,7 +15,7 @@
         </tr>
         {% for blog in blog_list %}
         <tr>
-            <td align="center"><a href="/blog/detail?title={{blog.blog_title}}">{{ blog.blog_title }}</a></td>
+            <td align="center"><a href="/blog/detail?id={{blog.id}}">{{ blog.blog_title }}</a></td>
             <td align="center">{{ blog.update_time | date:'Y-m-d H:i:s' }}</td>
             <td align="center">{{ blog.modify_time | date:'Y-m-d H:i:s' }}</td>
         </tr>

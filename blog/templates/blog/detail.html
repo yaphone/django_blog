@@ -10,6 +10,9 @@
             height: 20px;
             border-radius: 100%;
 	    }
+	    p{
+              margin-bottom:30px;
+        }
     </style>
     <script>
         $(document).ready(function(){
@@ -136,7 +139,7 @@
                 <audio id="music_url" style="display:none" autoplay controls loop><source src="" /></audio>
             </p>
             <hr>
-            <p> {{ blog.blog_content | custom_markdown  }} </p>
+                {{ blog.blog_content | custom_markdown  }}
             <hr>
         </div><!-- /.blog-post -->
         <button id="comment_button" class="btn-lg btn-primary col-lg-12">评论</button>
